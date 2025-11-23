@@ -40,6 +40,8 @@ var hit_connected = false
 @onready var wave_dash_timer = $Timers/WaveDashTimer
 @onready var fpm_anims = $"head/FPM Anims"
 @onready var ability_cooldown = $Timers/AbilityCooldown
+@onready var hit_sfx = $SoundFX/hit_sfx
+@onready var death_sfx = $SoundFX/death_sfx
 
 
 func _enter_tree():
@@ -111,7 +113,6 @@ func _physics_process(delta):
 				is_dashing = false
 		
 		if Input.is_action_just_pressed("dash") and can_dash and health > 0:
-			dash_timer.paused = false
 			dash(dash_power)
 		
 		# Get the input direction and handle the movement/deceleration.
@@ -192,11 +193,12 @@ func dash(dash_speed : int):
 	dash_velocity = dash_velocity.rotated(Vector3(0, 1, 0), rotation.y)
 	velocity = dash_velocity
 	
+	dash_timer.paused = false
 	is_dashing = true
 	can_dash = false
 	dash_timer.start()
 
-func hit():
+func hit(lifesteal = false, extra_damage = 0):
 	#print("Trying to hit :]")
 	#arm_animtree.set("parameters/Hitting/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	arm_anims.pause()
@@ -204,9 +206,14 @@ func hit():
 	
 	## Actual Attack Code ##
 	if hit_bar.is_colliding() and hit_connected == false and hit_bar.get_collider(0) is CharacterBody3D:
+		hit_sfx.pitch_scale = randf_range(0.8, 1)
+		hit_sfx.play()
 		
 		hit_connected = true
-		$"../".send_signal(hit_bar.get_collider(0).name, "take_damage", attack_damage)
+		$"../".send_signal(hit_bar.get_collider(0).name, "take_damage", attack_damage + extra_damage)
+		
+		if lifesteal == true:
+			self.health += 50
 		
 		can_attack = false
 		#hit_bar.enabled = true
@@ -226,6 +233,7 @@ func take_damage(damage_amount):
 	health -= damage_amount
 	#print(health)
 	if health <= 0:
+		death_sfx.play()
 		respawn_timer.start()
 
 func _on_arm_animator_animation_finished(anim_name):
