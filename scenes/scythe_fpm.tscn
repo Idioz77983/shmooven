@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dea3gai8ilirp"]
+
+[ext_resource type="PackedScene" uid="uid://dnvqoj13lw23f" path="res://assets/Models/Scythe.gltf" id="1_63ct1"]
+
+[node name="ScytheFPM" instance=ExtResource("1_63ct1")]
+
+[node name="cuboid" parent="Scythe" index="0"]
+cast_shadow = 0
+
+[node name="cuboid2" parent="Scythe" index="1"]
+transform = Transform3D(1.25, 0, 0, 0, 1, 0, 0, 0, 1, 0.6125, 1.3125, 0)
+cast_shadow = 0
+
+[node name="cuboid3" parent="Scythe" index="2"]
+cast_shadow = 0
+
+[node name="cuboid4" parent="Scythe" index="3"]
+cast_shadow = 0
+
+[node name="plane" parent="Scythe" index="4"]
+cast_shadow = 0

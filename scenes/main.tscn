@@ -1,0 +1,276 @@
+[gd_scene load_steps=10 format=3 uid="uid://dxdjs3yheus65"]
+
+[ext_resource type="Texture2D" uid="uid://x1hpn66d3tnl" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://cac3yu1n3odtl" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://hvtxo3crwfxh" path="res://scenes/player.tscn" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://84ju30ilyq40" path="res://scenes/void.gd" id="4_jyhfs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_sugp2"]
+sky_material = SubResource("ProceduralSkyMaterial_0wfyh")
+
+[sub_resource type="Environment" id="Environment_jyhfs"]
+background_mode = 2
+sky = SubResource("Sky_sugp2")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
+albedo_texture = ExtResource("1_0wfyh")
+uv1_triplanar = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tbgi4"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_sugp2")
+player_scene = ExtResource("2_sugp2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jyhfs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Map" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map"]
+use_collision = true
+size = Vector3(30, 0.5, 30)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.46, 2.793, 0)
+use_collision = true
+size = Vector3(9, 0.5, 56)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.46, 2.793, 0)
+use_collision = true
+size = Vector3(9, 0.5, 56)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.0254691e-06, 2.793, -23.46)
+use_collision = true
+size = Vector3(9, 0.5, 38)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.0254691e-06, 2.793, 23.46)
+use_collision = true
+size = Vector3(9, 0.5, 38)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.57357645, 0, -0.5735764, 0.81915206, 0, 1.2, 17.199999)
+use_collision = true
+size = Vector3(40, 1, 5)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-1, 5.0143644e-08, -7.161255e-08, 0, 0.819152, 0.57357645, 8.742278e-08, 0.5735764, -0.81915206, 0, 1.2, -17.2)
+use_collision = true
+size = Vector3(40, 1, 5)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-4.371139e-08, -0.5735764, 0.81915206, 0, 0.8191521, 0.5735765, -1.0000001, 4.9484456e-08, -1.8712367e-08, 17.2, 1.2, -1.7055102e-06)
+use_collision = true
+size = Vector3(40, 1, 5)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1.3113416e-07, 0.5735764, -0.81915206, -6.158115e-15, 0.8191521, 0.5735765, 1.0000001, -9.96281e-08, 9.032492e-08, -17.2, 1.2, -2.0183842e-07)
+use_collision = true
+size = Vector3(40, 1, 5)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+offset_left = 15.0
+offset_top = 13.0
+offset_right = 248.0
+offset_bottom = 126.0
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -137.0
+offset_right = 258.0
+offset_bottom = -24.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Join"
+
+[node name="joinPort" type="LineEdit" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 274.0
+offset_top = -134.0
+offset_right = 574.0
+offset_bottom = -103.0
+grow_vertical = 0
+placeholder_text = "Insert the host's Port here,"
+
+[node name="joinIp" type="LineEdit" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 275.0
+offset_top = -96.0
+offset_right = 575.0
+offset_bottom = -65.0
+grow_vertical = 0
+placeholder_text = "and insert the IP here, then join!"
+
+[node name="HostPort" type="LineEdit" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.11805555
+offset_left = 261.0
+offset_top = 58.0
+offset_right = 388.0
+offset_bottom = 89.0
+placeholder_text = "Port to host on (defaults to 1027)"
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(700, 250)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 75
+bbcode_enabled = true
+text = "[wave]- Shmooven -"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PlayerName" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Put ur username here >:3"
+alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 274.0
+offset_top = -59.0
+offset_right = 619.0
+offset_bottom = -10.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "- leaving them blank will let you join yourself
+(without port forwarding)"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 130.0
+offset_right = 298.0
+offset_bottom = 158.0
+theme_override_font_sizes/font_size = 16
+text = "- Port Forwarding Required :("
+
+[node name="Controls" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -63.5
+offset_right = 97.0
+offset_bottom = 63.5
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label3" type="Label" parent="CanvasLayer/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "-- Controls --
+wasd - move
+lmb - ability
+rmb - attack
+shift - dash"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://hvtxo3crwfxh")
+spawn_path = NodePath("..")
+
+[node name="Host Info" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="Host Info"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Host Info/Control"]
+layout_direction = 3
+layout_mode = 1
+offset_right = 265.0
+offset_bottom = 80.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Host Info/Control/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="HostsIP" type="Label" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join IP: put the hosts ipv4 here"
+
+[node name="HostsPort" type="Label" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Port: 1027"
+
+[node name="Void" type="Area3D" parent="."]
+script = ExtResource("4_jyhfs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Void"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
+shape = SubResource("WorldBoundaryShape3D_tbgi4")
+
+[connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
+[connection signal="body_entered" from="Void" to="Void" method="_on_body_entered"]

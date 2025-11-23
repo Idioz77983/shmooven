@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dvlvfauul814u"
+path="res://.godot/imported/8 Player Critical Attack Nr 1 Minecraft Sound - Sound Effect for.mp3-6f0aaa52bf8044376325389af12f080c.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds/8 Player Critical Attack Nr 1 Minecraft Sound - Sound Effect for.mp3"
+dest_files=["res://.godot/imported/8 Player Critical Attack Nr 1 Minecraft Sound - Sound Effect for.mp3-6f0aaa52bf8044376325389af12f080c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

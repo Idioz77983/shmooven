@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://drjcdc7xmspkx"]
+
+[ext_resource type="PackedScene" uid="uid://dnxabfrqyaj8k" path="res://assets/Models/Sword.gltf" id="1_xq4ii"]
+
+[node name="SwordFPM" instance=ExtResource("1_xq4ii")]
+
+[node name="Blade" parent="Sword" index="0"]
+cast_shadow = 0
+gi_mode = 0
+
+[node name="Handle" parent="Sword" index="1"]
+cast_shadow = 0
+gi_mode = 0
+
+[node name="Guard" parent="Sword" index="2"]
+cast_shadow = 0
+gi_mode = 0
