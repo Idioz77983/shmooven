@@ -61,9 +61,9 @@ size = Vector3(9, 0.5, 38)
 material = SubResource("StandardMaterial3D_jyhfs")
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.0254691e-06, 2.793, 23.46)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.0268351e-06, 2.793, 23.49125)
 use_collision = true
-size = Vector3(9, 0.5, 38)
+size = Vector3(9.0625, 0.5, 38)
 material = SubResource("StandardMaterial3D_jyhfs")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Map"]

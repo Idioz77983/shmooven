@@ -16,6 +16,7 @@ var can_dash = true
 var available_dashes = 1
 var max_dashes = 1
 var can_wavedash = false
+var score = 0
 
 var health = 100
 var attack_damage = 0
@@ -43,6 +44,8 @@ var hit_connected = false
 @onready var ability_cooldown = $Timers/AbilityCooldown
 @onready var hit_sfx = $SoundFX/hit_sfx
 @onready var death_sfx = $SoundFX/death_sfx
+@onready var attack_icon = $head/Camera3D/CanvasLayer/CanAttack
+@onready var ability_icon = $head/Camera3D/CanvasLayer/AbilityAvailable
 
 
 func _enter_tree():
@@ -57,7 +60,7 @@ func _ready():
 	firstperson_models.visible = is_multiplayer_authority()
 	#arm_anims.play("HoldingItem")
 	nametag.visible = !is_multiplayer_authority()
-	health_bar.visible = is_multiplayer_authority()
+	$head/Camera3D/CanvasLayer.visible = is_multiplayer_authority()
 	
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -88,8 +91,12 @@ func _physics_process(delta):
 		elif Input.is_action_just_pressed("SwitchRight"):
 			hand.switch_weapon(1)
 		
+		attack_icon.visible = can_attack
+		ability_icon.visible = can_ability
 		
 		health_bar.value = health
+		
+		speed = clamp(speed, 0, 24)
 		
 		# Add the gravity.
 		if not is_on_floor():
@@ -184,6 +191,9 @@ func _physics_process(delta):
 				attack_damage = hand.weapon_stats[held_weapon]["Damage"] * -velocity.y / 4
 			else:
 				attack_damage = hand.weapon_stats[held_weapon]["Damage"]
+		
+		
+		
 
 
 func _on_dash_timer_timeout():

@@ -234,18 +234,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_d2wvv")
 
-[node name="TextureRect3" type="TextureRect" parent="head/Camera3D/CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = -117.0
-offset_right = 60.0
-offset_bottom = -77.0
-grow_vertical = 0
-texture = ExtResource("3_a8ls1")
-
-[node name="TextureRect2" type="TextureRect" parent="head/Camera3D/CanvasLayer"]
+[node name="CanAttack" type="TextureRect" parent="head/Camera3D/CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -258,6 +247,17 @@ offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_qfm1y")
+
+[node name="AbilityAvailable" type="TextureRect" parent="head/Camera3D/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -117.0
+offset_right = 60.0
+offset_bottom = -77.0
+grow_vertical = 0
+texture = ExtResource("3_a8ls1")
 
 [node name="FirstpersonModels" type="Marker3D" parent="head"]
 transform = Transform3D(-0.006445462, 0.001136509, 0.7499715, 0.13023609, 0.7386055, 3.167998e-10, -0.73857725, 0.13023116, -0.006544898, 1, -1.03, -1.025)
