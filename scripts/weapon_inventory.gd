@@ -14,8 +14,8 @@ var weapon_stats = {
 	"Sword": {
 		"Damage": 10,
 		"AttSpeed": 0.5,
-		"Range": 2.0,
-		"HitboxSize": 0.5
+		"Range": 2.25,
+		"HitboxSize": 0.75
 	},
 	"Scythe": {
 		"Damage": 25,

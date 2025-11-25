@@ -192,7 +192,7 @@ func _physics_process(delta):
 			var held_weapon = hand.weapons[hand.current_weapon]
 			
 			if !is_on_floor() and velocity.y < 0 and held_weapon == "Sword":
-				attack_damage = hand.weapon_stats[held_weapon]["Damage"] * -velocity.y / 4
+				attack_damage = hand.weapon_stats[held_weapon]["Damage"] * -velocity.y / 2
 			else:
 				attack_damage = hand.weapon_stats[held_weapon]["Damage"]
 		

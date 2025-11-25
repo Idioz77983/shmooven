@@ -316,6 +316,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="WaveDashTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
 one_shot = true
 
 [node name="AbilityCooldown" type="Timer" parent="Timers"]
