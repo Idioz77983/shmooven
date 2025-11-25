@@ -91,7 +91,11 @@ func _physics_process(delta):
 		elif Input.is_action_just_pressed("SwitchRight"):
 			hand.switch_weapon(1)
 		
-		attack_icon.visible = can_attack
+		if can_attack:
+			attack_icon.visible = hit_bar.is_colliding()
+		else:
+			attack_icon.visible = false
+		
 		ability_icon.visible = can_ability
 		
 		health_bar.value = health
@@ -257,7 +261,7 @@ func _on_arm_animator_animation_finished(anim_name):
 	if anim_name == "Hit" and  hand.current_weapon != 0:
 		arm_anims.play("HoldingItem")
 	else:
-		arm_anims.play("RESET")
+		arm_anims.stop()
 
 func _on_attack_length_timeout():
 	hit_connected = false

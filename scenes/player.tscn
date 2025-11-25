@@ -323,16 +323,12 @@ wait_time = 7.5
 
 [node name="TempPlayerModel" parent="." instance=ExtResource("2_g2els")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.757, 0)
-visible = false
-
-[node name="Blobert" parent="TempPlayerModel" index="0"]
-transform = Transform3D(1.0008941, 0, 0, 0, 0.99955297, 0, 0, 0, 1.0008941, 0, 0, 0)
 
 [node name="LeftArm" parent="TempPlayerModel/Blobert/UpperBody" index="0"]
-transform = Transform3D(0.93969256, 0.34170538, -0.014671064, -0.34202018, 0.9388277, -0.04030842, -1.8626451e-09, 0.04289532, 0.9990795, -0.3125, 1.890625, 0)
+transform = Transform3D(0.93969256, 0.34202015, 0, -0.34202012, 0.9396926, 0, 0, 0, 0.99999994, -0.3125, 1.890625, 0)
 
 [node name="RightArm" parent="TempPlayerModel/Blobert/UpperBody" index="1"]
-transform = Transform3D(0.93969214, -0.3420201, 0, 0.34201995, 0.93969256, 0, 0, 0, 1, 0.3125, 1.890625, 0)
+transform = Transform3D(0.93969214, -0.3420201, 0, 0.34201995, 0.93969256, 0, 0, 0, 1, 0.375, 1.953125, 0.0625)
 
 [node name="GripSpot" type="Marker3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm" index="3"]
 transform = Transform3D(0.99999994, -8.1247425e-11, 1.7729151e-12, 0, 1, 0, 0, 0, 0.99999994, 0.099999994, -1.0999999, 7.450581e-09)
@@ -349,9 +345,6 @@ script = ExtResource("5_fjrip")
 transform = Transform3D(2.9802322e-08, -6.7055225e-08, 1.4999999, -1.4488887, 0.3882286, 2.9802322e-08, -0.3882286, -1.4488888, -6.556707e-08, 0, 0, 0)
 visible = false
 script = ExtResource("11_f1ej7")
-
-[node name="AnimationTree" parent="TempPlayerModel" index="2"]
-active = false
 
 [node name="Nametag" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
