@@ -2,12 +2,13 @@ extends CharacterBody3D
 
 var has_esc_been_pressed = false
 
-var speed = 5.0
-const JUMP_VELOCITY = 7.5
-const gravity = -15
+var speed = 6
+const default_speed = 6
+const JUMP_VELOCITY = 10
+const gravity = -20
 const mouse_sens = 0.3
 var friction = 0.1
-var dash_power = 15
+var dash_power = 17.5
 var is_dashing = false
 var can_ability = true
 
@@ -102,12 +103,15 @@ func _physics_process(delta):
 		elif is_dashing and is_on_floor() and can_wavedash == false:
 			can_wavedash = true
 			wave_dash_timer.start()
+		if can_wavedash == false and is_on_floor():
+			speed = default_speed
 		
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
-			dash_timer.stop()
 			if can_dash == false and can_wavedash == true:
+				dash_timer.stop()
+				speed *= 1.25
 				dash_timer.paused = true
 				can_dash = true
 				is_dashing = false
@@ -278,6 +282,7 @@ func _on_respawn_timer_timeout():
 
 func _on_wave_dash_timer_timeout():
 	can_wavedash = false
+	#is_dashing = false
 
 
 func _on_fpm_anims_animation_finished(anim_name):

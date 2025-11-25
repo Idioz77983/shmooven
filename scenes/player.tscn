@@ -183,6 +183,8 @@ properties/12/replication_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 3
 floor_stop_on_slope = false
+floor_constant_speed = true
+floor_snap_length = 0.2
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -314,7 +316,6 @@ wait_time = 2.0
 one_shot = true
 
 [node name="WaveDashTimer" type="Timer" parent="Timers"]
-wait_time = 0.2
 one_shot = true
 
 [node name="AbilityCooldown" type="Timer" parent="Timers"]
