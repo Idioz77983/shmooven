@@ -206,8 +206,8 @@ func hit(lifesteal = false, extra_damage = 0):
 	
 	## Actual Attack Code ##
 	if hit_bar.is_colliding() and hit_connected == false and hit_bar.get_collider(0) is CharacterBody3D:
-		hit_sfx.pitch_scale = randf_range(0.8, 1)
-		hit_sfx.play()
+		#hit_sfx.pitch_scale = randf_range(0.8, 1)
+		#hit_sfx.play()
 		
 		hit_connected = true
 		$"../".send_signal(hit_bar.get_collider(0).name, "take_damage", attack_damage + extra_damage)
@@ -230,6 +230,9 @@ func ability():
 		fpm_anims.play("ability")
 
 func take_damage(damage_amount):
+	hit_sfx.pitch_scale = randf_range(0.8, 1)
+	hit_sfx.play()
+	
 	health -= damage_amount
 	#print(health)
 	if health <= 0:

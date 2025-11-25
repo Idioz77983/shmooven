@@ -1,14 +1,16 @@
-[gd_scene load_steps=26 format=3 uid="uid://hvtxo3crwfxh"]
+[gd_scene load_steps=28 format=3 uid="uid://hvtxo3crwfxh"]
 
 [ext_resource type="Script" uid="uid://boee4cdtnk6ht" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bagbmqyntfyo4" path="res://assets/crosshair.png" id="2_d2wvv"]
 [ext_resource type="PackedScene" uid="uid://d4j4p8ebdtbhu" path="res://assets/Models/temp_player_model.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://bltlamlq73lid" path="res://scripts/firstperson_models.gd" id="2_smehm"]
+[ext_resource type="Texture2D" uid="uid://l64qk4criola" path="res://assets/ability_indicater.png" id="3_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://dnxabfrqyaj8k" path="res://assets/Models/Sword.gltf" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://bi8gbb4ldi6sv" path="res://scripts/weapon_inventory.gd" id="3_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://dea3gai8ilirp" path="res://scenes/scythe_fpm.tscn" id="3_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://drjcdc7xmspkx" path="res://scenes/sword_fpm.tscn" id="4_d2wvv"]
 [ext_resource type="PackedScene" uid="uid://dnvqoj13lw23f" path="res://assets/Models/Scythe.gltf" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://c57uvc7pdc1g4" path="res://assets/attack_indicater.png" id="4_qfm1y"]
 [ext_resource type="Script" uid="uid://bwcrqwvkantg0" path="res://scripts/sword.gd" id="5_fjrip"]
 [ext_resource type="FontFile" uid="uid://bcx24ug5gh6pa" path="res://assets/Kenney Mini Square.ttf" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://b52lr6l7r1541" path="res://scripts/scythe.gd" id="11_f1ej7"]
@@ -173,12 +175,9 @@ properties/10/replication_mode = 2
 properties/11/path = NodePath("head/HitBar:margin")
 properties/11/spawn = true
 properties/11/replication_mode = 1
-properties/12/path = NodePath("SoundFX/hit_sfx:playing")
+properties/12/path = NodePath("SoundFX/death_sfx:playing")
 properties/12/spawn = true
 properties/12/replication_mode = 1
-properties/13/path = NodePath("SoundFX/death_sfx:playing")
-properties/13/spawn = true
-properties/13/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -232,6 +231,31 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_d2wvv")
+
+[node name="TextureRect3" type="TextureRect" parent="head/Camera3D/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -117.0
+offset_right = 60.0
+offset_bottom = -77.0
+grow_vertical = 0
+texture = ExtResource("3_a8ls1")
+
+[node name="TextureRect2" type="TextureRect" parent="head/Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = 20.0
+offset_right = 40.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_qfm1y")
 
 [node name="FirstpersonModels" type="Marker3D" parent="head"]
 transform = Transform3D(-0.006445462, 0.001136509, 0.7499715, 0.13023609, 0.7386055, 3.167998e-10, -0.73857725, 0.13023116, -0.006544898, 1, -1.03, -1.025)
@@ -307,7 +331,7 @@ transform = Transform3D(1.0008941, 0, 0, 0, 0.99955297, 0, 0, 0, 1.0008941, 0, 0
 transform = Transform3D(0.93969256, 0.34170538, -0.014671064, -0.34202018, 0.9388277, -0.04030842, -1.8626451e-09, 0.04289532, 0.9990795, -0.3125, 1.890625, 0)
 
 [node name="RightArm" parent="TempPlayerModel/Blobert/UpperBody" index="1"]
-transform = Transform3D(0.93969214, -0.3420201, 0, 0.34201998, 0.93969256, 0, 0, 0, 1, 0.3125, 1.890625, 0)
+transform = Transform3D(0.93969214, -0.3420201, 0, 0.34201995, 0.93969256, 0, 0, 0, 1, 0.3125, 1.890625, 0)
 
 [node name="GripSpot" type="Marker3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm" index="3"]
 transform = Transform3D(0.99999994, -8.1247425e-11, 1.7729151e-12, 0, 1, 0, 0, 0, 0.99999994, 0.099999994, -1.0999999, 7.450581e-09)
@@ -335,7 +359,8 @@ outline_modulate = Color(0.39181867, 0.39181864, 0.39181864, 1)
 text = "Mr. No Name :P"
 font = ExtResource("6_tuyoq")
 
-[node name="SoundFX" type="Node" parent="."]
+[node name="SoundFX" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="hit_sfx" type="AudioStreamPlayer3D" parent="SoundFX"]
 stream = ExtResource("12_jej6c")
