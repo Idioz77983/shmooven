@@ -15,13 +15,17 @@ var weapon_stats = {
 		"Damage": 10,
 		"AttSpeed": 0.5,
 		"Range": 2.25,
-		"HitboxSize": 0.75
+		"HitboxSize": 0.75,
+		"GravMulti": 1,
+		"Slowness": 0
 	},
 	"Scythe": {
 		"Damage": 25,
 		"AttSpeed": 1.5,
 		"Range": 3.0,
-		"HitboxSize": 1.5
+		"HitboxSize": 1.5,
+		"GravMulti": 1.25,
+		"Slowness": 8
 	}
 }
 

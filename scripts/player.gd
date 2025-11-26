@@ -23,6 +23,8 @@ var attack_damage = 0
 var attack_speed = 0
 var can_attack = true
 var hit_connected = false
+var grav_multi = 1
+var slowness = 0
 
 @onready var head = $head
 @onready var cam = $head/Camera3D
@@ -101,11 +103,11 @@ func _physics_process(delta):
 		health_bar.value = health
 		
 		health = clamp(health, 0, 125)
-		speed = clamp(speed, 0, 24)
+		speed = clamp(speed, 0, 24 - slowness)
 		
 		# Add the gravity.
 		if not is_on_floor():
-			velocity.y += gravity * delta
+			velocity.y += gravity * delta * grav_multi
 			friction = 0.01
 		else:
 			friction = 0.1 
@@ -277,10 +279,14 @@ func load_weapon_stats(WeaponId):
 		attack_speed = hand.weapon_stats[hand.weapons[WeaponId]]["AttSpeed"]
 		hit_bar.shape.size.x = hand.weapon_stats[hand.weapons[WeaponId]]["HitboxSize"]
 		hit_bar.shape.size.y = hand.weapon_stats[hand.weapons[WeaponId]]["HitboxSize"]
+		grav_multi = hand.weapon_stats[hand.weapons[WeaponId]]["GravMulti"]
+		slowness = hand.weapon_stats[hand.weapons[WeaponId]]["Slowness"]
 	elif hand.current_weapon == 0:
 		hit_bar.target_position = Vector3(0, 0, 0)
 		attack_damage = 0
 		attack_speed = 0
+		grav_multi = 1
+		slowness = 0
 	
 	if is_multiplayer_authority():
 		arm_anims.play("Hit")
