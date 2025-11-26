@@ -32,7 +32,6 @@ var hit_connected = false
 @onready var arm_anims = $TempPlayerModel/ArmAnimator
 @onready var hand = $TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot
 @onready var nametag = $Nametag
-@onready var arm_animtree = $TempPlayerModel/AnimationTree
 @onready var hit_bar = $head/HitBar
 @onready var attack_length = $Timers/AttackLength
 @onready var attack_cooldown = $Timers/AttackCooldown
@@ -46,6 +45,7 @@ var hit_connected = false
 @onready var death_sfx = $SoundFX/death_sfx
 @onready var attack_icon = $head/Camera3D/CanvasLayer/CanAttack
 @onready var ability_icon = $head/Camera3D/CanvasLayer/AbilityAvailable
+@onready var hitbox = $Hitbox
 
 
 func _enter_tree():
@@ -100,6 +100,7 @@ func _physics_process(delta):
 		
 		health_bar.value = health
 		
+		health = clamp(health, 0, 125)
 		speed = clamp(speed, 0, 24)
 		
 		# Add the gravity.
@@ -205,11 +206,14 @@ func _on_dash_timer_timeout():
 
 
 
-func dash(dash_speed : int):
+func dash(dash_speed : int, additive = true):
 	var dash_velocity = Vector3()
 	dash_velocity = Vector3(0,0,-dash_speed).rotated(Vector3(1, 0, 0), head.rotation.x)
 	dash_velocity = dash_velocity.rotated(Vector3(0, 1, 0), rotation.y)
-	velocity = dash_velocity
+	if additive == false:
+		velocity = dash_velocity
+	else:
+		velocity += dash_velocity
 	
 	dash_timer.paused = false
 	is_dashing = true

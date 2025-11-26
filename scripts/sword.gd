@@ -3,4 +3,4 @@ extends Node3D
 @onready var player = $"../../../../../../.."
 
 func ability():
-	player.dash(25)
+	player.dash(25, false)

@@ -185,9 +185,11 @@ collision_layer = 3
 floor_stop_on_slope = false
 floor_constant_speed = true
 floor_snap_length = 0.2
+platform_on_leave = 2
 script = ExtResource("1_3vyb7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionBox" type="CollisionShape3D" parent="."]
+visible = false
 shape = SubResource("BoxShape3D_g2els")
 
 [node name="head" type="Marker3D" parent="."]
@@ -281,6 +283,7 @@ autoplay = "RESET"
 shape = SubResource("BoxShape3D_d2wvv")
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 2
+collide_with_areas = true
 debug_shape_custom_color = Color(0, 0.62873185, 0.35121158, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
