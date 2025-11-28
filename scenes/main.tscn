@@ -390,9 +390,7 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[wave]-- Update Log -- [/wave]
 
-- Updated the map a lil bit
-- Changed the dash system
-- Balancing Changes :D"
+ - Added a backdash"
 fit_content = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

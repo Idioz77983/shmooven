@@ -131,7 +131,10 @@ func _physics_process(delta):
 				is_dashing = false
 		
 		if Input.is_action_just_pressed("dash") and can_dash and health > 0:
-			dash(dash_power)
+			if Input.is_action_pressed("backward"):
+				dash(-dash_power/2)
+			else:
+				dash(dash_power)
 		
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.

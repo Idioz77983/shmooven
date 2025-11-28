@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://boee4cdtnk6ht" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bagbmqyntfyo4" path="res://assets/crosshair.png" id="2_d2wvv"]
-[ext_resource type="PackedScene" uid="uid://d4j4p8ebdtbhu" path="res://assets/Models/temp_player_model.tscn" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://d4j4p8ebdtbhu" path="res://assets/Skins/player_model.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://bltlamlq73lid" path="res://scripts/firstperson_models.gd" id="2_smehm"]
 [ext_resource type="Texture2D" uid="uid://l64qk4criola" path="res://assets/ability_indicater.png" id="3_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://dnxabfrqyaj8k" path="res://assets/Models/Sword.gltf" id="3_qhqgy"]
@@ -189,7 +189,6 @@ platform_on_leave = 2
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionBox" type="CollisionShape3D" parent="."]
-visible = false
 shape = SubResource("BoxShape3D_g2els")
 
 [node name="head" type="Marker3D" parent="."]
@@ -332,21 +331,22 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.757, 0)
 transform = Transform3D(0.93969256, 0.34202015, 0, -0.34202012, 0.9396926, 0, 0, 0, 0.99999994, -0.3125, 1.890625, 0)
 
 [node name="RightArm" parent="TempPlayerModel/Blobert/UpperBody" index="1"]
-transform = Transform3D(0.93969214, -0.3420201, 0, 0.34201995, 0.93969256, 0, 0, 0, 1, 0.375, 1.953125, 0.0625)
+transform = Transform3D(0.93969214, -0.3420201, 0, 0.34201995, 0.93969256, 0, 0, 0, 1, 0.3, 1.891, 0.063)
 
-[node name="GripSpot" type="Marker3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm" index="3"]
+[node name="GripSpot" type="Marker3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm" index="4"]
 transform = Transform3D(0.99999994, -8.1247425e-11, 1.7729151e-12, 0, 1, 0, 0, 0, 0.99999994, 0.099999994, -1.0999999, 7.450581e-09)
 script = ExtResource("3_qlg0r")
 
 [node name="Weapons" type="Node3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot"]
+transform = Transform3D(1, 0, -1.7729154e-12, 2.9802322e-08, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Sword" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" instance=ExtResource("3_qhqgy")]
-transform = Transform3D(2.9802322e-08, -6.556708e-08, 1.4999999, -1.5, -6.556707e-08, 2.9802322e-08, 6.556707e-08, -1.4999999, -6.556707e-08, 0, 0, 0)
+transform = Transform3D(2.9802322e-08, -6.556708e-08, 1.5000001, -1.5000001, -6.556708e-08, -5.9604645e-08, 6.556708e-08, -1.5, -6.556708e-08, 0, 0, 0)
 visible = false
 script = ExtResource("5_fjrip")
 
 [node name="Scythe" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" instance=ExtResource("4_dqkch")]
-transform = Transform3D(2.9802322e-08, -6.7055225e-08, 1.4999999, -1.4488887, 0.3882286, 2.9802322e-08, -0.3882286, -1.4488888, -6.556707e-08, 0, 0, 0)
+transform = Transform3D(-4.675154e-20, -5.9604645e-08, 1.5000001, -1.4488889, 0.38822865, -5.9604645e-08, -0.38822865, -1.4488889, -6.556708e-08, 0, 0, 0)
 visible = false
 script = ExtResource("11_f1ej7")
 

@@ -15,7 +15,7 @@ var weapon_stats = {
 		"Damage": 10,
 		"AttSpeed": 0.5,
 		"Range": 2.25,
-		"HitboxSize": 0.75,
+		"HitboxSize": 1,
 		"GravMulti": 1,
 		"Slowness": 0
 	},
