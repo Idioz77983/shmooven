@@ -1,9 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://dxdjs3yheus65"]
 
-[ext_resource type="Texture2D" uid="uid://x1hpn66d3tnl" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://cac3yu1n3odtl" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://hvtxo3crwfxh" path="res://scenes/player.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bhd3njl8i3egu" path="res://scenes/Maps/lobby.tscn" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://84ju30ilyq40" path="res://scenes/void.gd" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://hl2r7nlkbq7y" path="res://scenes/Maps/map_for_testing.tscn" id="4_tbgi4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -17,15 +18,15 @@ background_mode = 2
 sky = SubResource("Sky_sugp2")
 tonemap_mode = 2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
-albedo_texture = ExtResource("1_0wfyh")
-uv1_triplanar = true
-
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tbgi4"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_sugp2")
 player_scene = ExtResource("2_sugp2")
+Maps = Dictionary[int, PackedScene]({
+0: ExtResource("3_jyhfs"),
+1: ExtResource("4_tbgi4")
+})
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jyhfs")
@@ -34,212 +35,6 @@ environment = SubResource("Environment_jyhfs")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Map" type="CSGCombiner3D" parent="."]
-use_collision = true
-
-[node name="platform" type="CSGBox3D" parent="Map"]
-use_collision = true
-size = Vector3(30, 0.5, 30)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform15" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31, 0)
-use_collision = true
-size = Vector3(20, 2, 20)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="Wall" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 0, 0)
-use_collision = true
-size = Vector3(5, 10, 120)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="Wall2" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -57)
-use_collision = true
-size = Vector3(5, 10, 120)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="Wall3" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -57, 0, 0)
-use_collision = true
-size = Vector3(5, 10, 120)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="Wall4" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 0, 0, 57)
-use_collision = true
-size = Vector3(5, 10, 120)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="pillar" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
-use_collision = true
-size = Vector3(10, 50, 10)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="pillar2" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -20)
-use_collision = true
-size = Vector3(10, 50, 10)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="pillar3" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 20)
-use_collision = true
-size = Vector3(10, 50, 10)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="pillar4" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -20)
-use_collision = true
-size = Vector3(10, 50, 10)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="Wall5" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57, 0, -57)
-use_collision = true
-size = Vector3(10, 25, 10)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="Wall6" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 0, -57)
-use_collision = true
-size = Vector3(10, 25, 10)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="Wall7" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 0, 57)
-use_collision = true
-size = Vector3(10, 25, 10)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="Wall8" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57, 0, 57)
-use_collision = true
-size = Vector3(10, 25, 10)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform2" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.96, 2.793, 0)
-use_collision = true
-size = Vector3(16, 0.5, 70)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform10" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 17, 0)
-use_collision = true
-size = Vector3(4, 5, 45)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform11" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.04, 17, 0)
-use_collision = true
-size = Vector3(4, 5, 45)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform14" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 14, -20)
-use_collision = true
-size = Vector3(4, 2.5, 5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform16" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 14, 20)
-use_collision = true
-size = Vector3(4, 2.5, 5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform17" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 14, -20)
-use_collision = true
-size = Vector3(4, 2.5, 5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform18" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 14, 20)
-use_collision = true
-size = Vector3(4, 2.5, 5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform12" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 21, -20)
-use_collision = true
-size = Vector3(8, 0.5, 45)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform13" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 21, 20)
-use_collision = true
-size = Vector3(8, 0.5, 45)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform3" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.96, 2.793, 0)
-use_collision = true
-size = Vector3(16, 0.5, 70)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform4" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.178459e-06, 2.793, -26.96)
-use_collision = true
-size = Vector3(16, 0.5, 38)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform5" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.178459e-06, 2.793, 26.96)
-use_collision = true
-size = Vector3(16, 0.5, 38)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform6" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.178459e-06, 13.793, 43.96)
-use_collision = true
-size = Vector3(16, 0.5, 38)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform7" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 13.793, -43.96)
-use_collision = true
-size = Vector3(16, 0.5, 38)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform8" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 43.96, 7.793, -2.5107822e-06)
-use_collision = true
-size = Vector3(16, 0.5, 38)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="platform9" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -43.96, 7.793, 2.5107822e-06)
-use_collision = true
-size = Vector3(16, 0.5, 38)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="ramp" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.57357645, 0, -0.5735764, 0.81915206, 0, 1.2, 17.199999)
-use_collision = true
-size = Vector3(40, 1, 5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="ramp2" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-1, 5.0143644e-08, -7.161255e-08, 0, 0.819152, 0.57357645, 8.742278e-08, 0.5735764, -0.81915206, 0, 1.2, -17.2)
-use_collision = true
-size = Vector3(40, 1, 5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="ramp3" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-4.371139e-08, -0.5735764, 0.81915206, 0, 0.8191521, 0.5735765, -1.0000001, 4.9484456e-08, -1.8712367e-08, 17.2, 1.2, -1.7055102e-06)
-use_collision = true
-size = Vector3(40, 1, 5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="ramp4" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1.3113416e-07, 0.5735764, -0.81915206, -6.158115e-15, 0.8191521, 0.5735765, 1.0000001, -9.96281e-08, 9.032492e-08, -17.2, 1.2, -2.0183842e-07)
-use_collision = true
-size = Vector3(40, 1, 5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Host" type="Button" parent="CanvasLayer"]
@@ -247,6 +42,7 @@ offset_left = 15.0
 offset_top = 13.0
 offset_right = 248.0
 offset_bottom = 126.0
+mouse_filter = 1
 text = "Host"
 
 [node name="Join" type="Button" parent="CanvasLayer"]
@@ -260,6 +56,7 @@ offset_bottom = -24.0
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
+mouse_filter = 1
 text = "Join"
 
 [node name="joinPort" type="LineEdit" parent="CanvasLayer"]
@@ -271,6 +68,7 @@ offset_top = -134.0
 offset_right = 574.0
 offset_bottom = -103.0
 grow_vertical = 0
+mouse_filter = 1
 placeholder_text = "Insert the host's Port here,"
 
 [node name="joinIp" type="LineEdit" parent="CanvasLayer"]
@@ -282,6 +80,7 @@ offset_top = -96.0
 offset_right = 575.0
 offset_bottom = -65.0
 grow_vertical = 0
+mouse_filter = 1
 placeholder_text = "and insert the IP here, then join!"
 
 [node name="HostPort" type="LineEdit" parent="CanvasLayer"]
@@ -291,6 +90,7 @@ offset_left = 261.0
 offset_top = 58.0
 offset_right = 388.0
 offset_bottom = 89.0
+mouse_filter = 1
 placeholder_text = "Port to host on (defaults to 1027)"
 metadata/_edit_use_anchors_ = true
 
@@ -320,6 +120,7 @@ alignment = 1
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_direction = 2
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 75
 bbcode_enabled = true
 text = "[wave]- Shmooven -"
@@ -331,6 +132,7 @@ vertical_alignment = 1
 
 [node name="PlayerName" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 placeholder_text = "Put ur username here >:3"
 alignment = 1
 
@@ -343,6 +145,7 @@ offset_top = -59.0
 offset_right = 619.0
 offset_bottom = -10.0
 grow_vertical = 0
+mouse_filter = 1
 theme_override_font_sizes/font_size = 16
 text = "- leaving them blank will let you join yourself
 (without port forwarding)"
@@ -352,6 +155,7 @@ offset_left = 20.0
 offset_top = 130.0
 offset_right = 298.0
 offset_bottom = 158.0
+mouse_filter = 1
 theme_override_font_sizes/font_size = 16
 text = "- Port Forwarding Required :("
 
@@ -370,6 +174,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="Label3" type="Label" parent="CanvasLayer/Controls"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/font_size = 20
 text = "-- Controls --
 wasd - move
@@ -386,6 +191,7 @@ offset_top = 29.0
 offset_right = -24.0
 offset_bottom = 202.0
 grow_horizontal = 0
+mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[wave]-- Update Log -- [/wave]
@@ -407,6 +213,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Host Info/Control"]
 layout_direction = 3
@@ -422,7 +229,17 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 alignment = 2
 
+[node name="BackToLobby" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load the Lobby"
+
+[node name="ChangeMap" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Load The Test Map"
+
 [node name="HostsIP" type="Label" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Join IP: put the hosts ipv4 here"
 
@@ -439,4 +256,6 @@ shape = SubResource("WorldBoundaryShape3D_tbgi4")
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Host Info/Control/MarginContainer/VBoxContainer/BackToLobby" to="." method="_on_back_to_lobby_pressed"]
+[connection signal="pressed" from="Host Info/Control/MarginContainer/VBoxContainer/ChangeMap" to="." method="_on_change_map_pressed"]
 [connection signal="body_entered" from="Void" to="Void" method="_on_body_entered"]

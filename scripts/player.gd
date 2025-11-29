@@ -47,7 +47,6 @@ var slowness = 0
 @onready var death_sfx = $SoundFX/death_sfx
 @onready var attack_icon = $head/Camera3D/CanvasLayer/CanAttack
 @onready var ability_icon = $head/Camera3D/CanvasLayer/AbilityAvailable
-@onready var hitbox = $Hitbox
 
 
 func _enter_tree():
@@ -303,7 +302,7 @@ func _on_attack_cooldown_timeout():
 
 
 func _on_respawn_timer_timeout():
-	position = Vector3(0, 1, 0)
+	position = Vector3(0, 2, 0)
 	health = 100
 
 

@@ -3,12 +3,16 @@ extends Node3D
 var peer = ENetMultiplayerPeer.new()
 var port = 1027
 @export var player_scene : PackedScene
+@export var Maps : Dictionary[int, PackedScene] = {}
 @onready var join_ip = $CanvasLayer/joinIp
 @onready var join_port = $CanvasLayer/joinPort
 @onready var host_port = $CanvasLayer/HostPort
 @onready var hosts_ip = $"Host Info/Control/MarginContainer/VBoxContainer/HostsIP"
 @onready var hosts_port = $"Host Info/Control/MarginContainer/VBoxContainer/HostsPort"
 @onready var player_name = $CanvasLayer/MarginContainer/VBoxContainer/PlayerName
+
+func _ready():
+	change_map(0)
 
 
 func _on_host_pressed():
@@ -65,8 +69,34 @@ func _del_player(id):
 		$CanvasLayer.show()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 @rpc("any_peer", "call_local")
-func _send_signal(id, signal_name, parameter = ""):
+func _send_signal(id, signal_name, parameter = null):
 	if parameter:
 		get_node(str(id)).call_deferred(signal_name, parameter)
 	else:
 		get_node(str(id)).call_deferred(signal_name)
+
+@rpc("any_peer", "call_local")
+func change_map(map_id):
+	if get_node("Map"):
+		get_node("Map").name = "old_map"
+		get_node("old_map").queue_free()
+	var map_to_add = Maps[map_id].instantiate()
+	map_to_add.name = "Map"
+	add_child(map_to_add, true)
+	
+
+@rpc("any_peer", "call_local")
+func reset_player_positions():
+	for i in get_children():
+		if i is CharacterBody3D:
+			rpc("_send_signal", i.name, "take_damage", 10000)
+
+
+func _on_change_map_pressed():
+	rpc("change_map", 1)
+	rpc("reset_player_positions")
+
+
+func _on_back_to_lobby_pressed():
+	rpc("change_map", 0)
+	rpc("reset_player_positions")

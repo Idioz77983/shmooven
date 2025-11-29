@@ -180,7 +180,7 @@ properties/12/spawn = true
 properties/12/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 collision_layer = 3
 floor_stop_on_slope = false
 floor_constant_speed = true
@@ -205,6 +205,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -215,6 +216,7 @@ custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_y4r1p")
 step = 0.1
 value = 100.0
@@ -233,6 +235,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_d2wvv")
 
 [node name="CanAttack" type="TextureRect" parent="head/Camera3D/CanvasLayer"]
@@ -247,6 +250,7 @@ offset_right = 40.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("4_qfm1y")
 
 [node name="AbilityAvailable" type="TextureRect" parent="head/Camera3D/CanvasLayer"]
@@ -258,6 +262,7 @@ offset_top = -117.0
 offset_right = 60.0
 offset_bottom = -77.0
 grow_vertical = 0
+mouse_filter = 2
 texture = ExtResource("3_a8ls1")
 
 [node name="FirstpersonModels" type="Marker3D" parent="head"]
