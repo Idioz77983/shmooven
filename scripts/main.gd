@@ -11,6 +11,7 @@ var port = 1027
 @onready var hosts_port = $"Host Info/Control/MarginContainer/VBoxContainer/HostsPort"
 @onready var player_name = $CanvasLayer/MarginContainer/VBoxContainer/PlayerName
 @onready var round_timer = $Timers/RoundTimer
+@onready var round_time = $"Host Info/Control/MarginContainer/VBoxContainer/RoundTime"
 
 func _ready():
 	change_map(0)
@@ -59,8 +60,8 @@ func exit_game(id):
 func del_player(id):
 	rpc("_del_player", id)
 
-func send_signal(id, signal_name, parameter = ""):
-	rpc("_send_signal", id, signal_name, parameter)
+func send_signal(id, signal_name, parameter = null, parameter2 = null):
+	rpc("_send_signal", id, signal_name, parameter, parameter2)
 
 @rpc("any_peer", "call_local")
 func _del_player(id):
@@ -70,9 +71,12 @@ func _del_player(id):
 		$CanvasLayer.show()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 @rpc("any_peer", "call_local")
-func _send_signal(id, signal_name, parameter = null):
+func _send_signal(id, signal_name, parameter = null, parameter2 = null):
 	if parameter:
-		get_node(str(id)).call_deferred(signal_name, parameter)
+		if parameter2 == null:
+			get_node(str(id)).call_deferred(signal_name, parameter)
+		if parameter2 != null:
+			get_node(str(id)).call_deferred(signal_name, parameter, parameter2)
 	else:
 		get_node(str(id)).call_deferred(signal_name)
 
@@ -87,26 +91,37 @@ func change_map(map_id):
 	
 
 @rpc("any_peer", "call_local")
-func reset_player_positions():
+func reset_player_positions(going_into_round = false):
 	for i in get_children():
 		if i is CharacterBody3D:
-			rpc("_send_signal", i.name, "reset_position")
+			i.call("reset_position", going_into_round)
 
+@rpc("any_peer", "call_local")
+func add_point(Recipiant, Amount):
+	for i in get_children():
+		if i is CharacterBody3D and i.name == Recipiant:
+			i.add_point(Amount)
 
 func _on_change_map_pressed():
 	rpc("change_map", 1)
-	rpc("reset_player_positions")
+	rpc("reset_player_positions", false)
 
 func _on_back_to_lobby_pressed():
 	rpc("change_map", 0)
-	rpc("reset_player_positions")
+	rpc("reset_player_positions", false)
 
 func _on_start_round_pressed():
+	var round_length : int
+	if int(round_time.text) > 0:
+		round_length = int(round_time.text)
+	else:
+		round_length = 120
+	round_time.text = ""
 	rpc("change_map", 1)
-	rpc("reset_player_positions")
-	round_timer.start(30)
+	rpc("reset_player_positions", true)
+	round_timer.start(round_length)
 
 
 func _on_round_timer_timeout():
 	rpc("change_map", 0)
-	rpc("reset_player_positions")
+	rpc("reset_player_positions", false)

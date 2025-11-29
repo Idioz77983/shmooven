@@ -19,12 +19,14 @@ var can_wavedash = false
 var score = 0
 
 var health = 100
+var is_dead = false
 var attack_damage = 0
 var attack_speed = 0
 var can_attack = true
 var hit_connected = false
 var grav_multi = 1
 var slowness = 0
+var is_in_round = false
 
 @onready var head = $head
 @onready var cam = $head/Camera3D
@@ -47,6 +49,7 @@ var slowness = 0
 @onready var death_sfx = $SoundFX/death_sfx
 @onready var attack_icon = $head/Camera3D/CanvasLayer/CanAttack
 @onready var ability_icon = $head/Camera3D/CanvasLayer/AbilityAvailable
+@onready var score_label = $head/Camera3D/CanvasLayer/MarginContainer/Score
 
 
 func _enter_tree():
@@ -86,6 +89,8 @@ func _input(event):
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
+		
+		score_label.text = "Score: " + str(score)
 		
 		if Input.is_action_just_pressed("SwitchLeft"):
 			hand.switch_weapon(-1)
@@ -236,7 +241,7 @@ func hit(lifesteal = false, extra_damage = 0):
 		#hit_sfx.play()
 		
 		hit_connected = true
-		$"../".send_signal(hit_bar.get_collider(0).name, "take_damage", attack_damage + extra_damage)
+		$"../".send_signal(hit_bar.get_collider(0).name, "take_damage", attack_damage + extra_damage, self.name)
 		
 		if lifesteal == true:
 			self.health += 50
@@ -255,13 +260,16 @@ func ability():
 			can_ability = false
 		fpm_anims.play("ability")
 
-func take_damage(damage_amount):
+func take_damage(damage_amount, attacker):
 	hit_sfx.pitch_scale = randf_range(0.8, 1)
 	hit_sfx.play()
 	
 	health -= damage_amount
 	#print(health)
-	if health <= 0:
+	if health <= 0 and !is_dead:
+		is_dead = true
+		if is_multiplayer_authority() and attacker != null and is_in_round: 
+			$"../".rpc("add_point", attacker, 1)
 		death_sfx.play()
 		respawn_timer.start()
 
@@ -304,6 +312,7 @@ func _on_attack_cooldown_timeout():
 func _on_respawn_timer_timeout():
 	position = Vector3(0, 2, 0)
 	health = 100
+	is_dead = false
 
 
 func _on_wave_dash_timer_timeout():
@@ -319,6 +328,14 @@ func _on_fpm_anims_animation_finished(anim_name):
 func _on_ability_cooldown_timeout():
 	can_ability = true
 
-func reset_position():
+func reset_position(going_to_round):
 	position = Vector3(0, 2, 0)
 	health = 100
+	if going_to_round == false:
+		is_in_round = false
+	if going_to_round == true:
+		is_in_round = true
+		score = 0
+
+func add_point(Amount):
+	score += Amount

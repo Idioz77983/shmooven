@@ -194,9 +194,10 @@ grow_horizontal = 0
 mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[wave]-- Update Log -- [/wave]
+text = "[tornado]-- Update Log -- [/tornado]
 
- - Added a backdash"
+ - Added a backdash
+ - Added actual gameplay!"
 fit_content = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -238,6 +239,10 @@ text = "Load the Lobby"
 layout_mode = 2
 focus_mode = 0
 text = "Load The Test Map"
+
+[node name="RoundTime" type="LineEdit" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Round Time: 120 seconds"
 
 [node name="StartRound" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
