@@ -10,6 +10,7 @@ var port = 1027
 @onready var hosts_ip = $"Host Info/Control/MarginContainer/VBoxContainer/HostsIP"
 @onready var hosts_port = $"Host Info/Control/MarginContainer/VBoxContainer/HostsPort"
 @onready var player_name = $CanvasLayer/MarginContainer/VBoxContainer/PlayerName
+@onready var round_timer = $Timers/RoundTimer
 
 func _ready():
 	change_map(0)
@@ -89,14 +90,23 @@ func change_map(map_id):
 func reset_player_positions():
 	for i in get_children():
 		if i is CharacterBody3D:
-			rpc("_send_signal", i.name, "take_damage", 10000)
+			rpc("_send_signal", i.name, "reset_position")
 
 
 func _on_change_map_pressed():
 	rpc("change_map", 1)
 	rpc("reset_player_positions")
 
-
 func _on_back_to_lobby_pressed():
+	rpc("change_map", 0)
+	rpc("reset_player_positions")
+
+func _on_start_round_pressed():
+	rpc("change_map", 1)
+	rpc("reset_player_positions")
+	round_timer.start(30)
+
+
+func _on_round_timer_timeout():
 	rpc("change_map", 0)
 	rpc("reset_player_positions")

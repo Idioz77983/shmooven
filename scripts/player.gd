@@ -318,3 +318,7 @@ func _on_fpm_anims_animation_finished(anim_name):
 
 func _on_ability_cooldown_timeout():
 	can_ability = true
+
+func reset_position():
+	position = Vector3(0, 2, 0)
+	health = 100

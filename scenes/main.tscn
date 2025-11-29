@@ -231,12 +231,18 @@ alignment = 2
 
 [node name="BackToLobby" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Load the Lobby"
 
 [node name="ChangeMap" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "Load The Test Map"
+
+[node name="StartRound" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Start a Round"
 
 [node name="HostsIP" type="Label" parent="Host Info/Control/MarginContainer/VBoxContainer"]
 visible = false
@@ -254,8 +260,15 @@ script = ExtResource("4_jyhfs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 shape = SubResource("WorldBoundaryShape3D_tbgi4")
 
+[node name="Timers" type="Node" parent="."]
+
+[node name="RoundTimer" type="Timer" parent="Timers"]
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Host Info/Control/MarginContainer/VBoxContainer/BackToLobby" to="." method="_on_back_to_lobby_pressed"]
 [connection signal="pressed" from="Host Info/Control/MarginContainer/VBoxContainer/ChangeMap" to="." method="_on_change_map_pressed"]
+[connection signal="pressed" from="Host Info/Control/MarginContainer/VBoxContainer/StartRound" to="." method="_on_start_round_pressed"]
 [connection signal="body_entered" from="Void" to="Void" method="_on_body_entered"]
+[connection signal="timeout" from="Timers/RoundTimer" to="." method="_on_round_timer_timeout"]
