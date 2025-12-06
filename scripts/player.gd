@@ -27,6 +27,8 @@ var hit_connected = false
 var grav_multi = 1
 var slowness = 0
 var is_in_round = false
+var grapple_point : Vector3
+var hooked_player = null
 
 @onready var head = $head
 @onready var cam = $head/Camera3D
@@ -50,6 +52,8 @@ var is_in_round = false
 @onready var attack_icon = $head/Camera3D/CanvasLayer/CanAttack
 @onready var ability_icon = $head/Camera3D/CanvasLayer/AbilityAvailable
 @onready var score_label = $head/Camera3D/CanvasLayer/MarginContainer/Score
+@onready var grapple_cast = $head/GrappleCast
+@onready var line_renderer_3d = $"head/GrappleLineFPM Marker/LineRenderer3D"
 
 
 func _enter_tree():
@@ -74,6 +78,7 @@ func _ready():
 	if is_multiplayer_authority(): 
 		animation_player.play("Idle")
 		hit_bar.add_exception(self)
+		grapple_cast.add_exception(self)
 
 func _input(event):
 	## mouse stuff ##
@@ -206,7 +211,27 @@ func _physics_process(delta):
 			else:
 				attack_damage = hand.weapon_stats[held_weapon]["Damage"]
 		
+		if grapple_cast.is_colliding() and Input.is_action_just_pressed("Grapple"):
+			if grapple_cast.get_collider(0) is CharacterBody3D:
+				hooked_player = grapple_cast.get_collider(0)
+			grapple_point = grapple_cast.get_collision_point(0)
+			
+			line_renderer_3d.visible = true
+			
 		
+		if grapple_point:
+			
+			if hooked_player:
+				grapple_point = hooked_player.global_position
+			
+			line_renderer_3d.points[0] = $"head/GrappleLineFPM Marker".global_position
+			line_renderer_3d.points[1] = grapple_point
+			velocity += global_position.direction_to(grapple_point)
+			
+			if global_position.distance_to(grapple_point) < 2 or !Input.is_action_pressed("Grapple"):
+				grapple_point = Vector3()
+				line_renderer_3d.visible = false
+				hooked_player = null
 		
 
 
@@ -244,7 +269,7 @@ func hit(lifesteal = false, extra_damage = 0):
 		$"../".send_signal(hit_bar.get_collider(0).name, "take_damage", attack_damage + extra_damage, self.name)
 		
 		if lifesteal == true:
-			self.health += 50
+			self.health += 25
 		
 		can_attack = false
 		#hit_bar.enabled = true

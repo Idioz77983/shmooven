@@ -5,6 +5,8 @@ extends Marker3D
 
 @export var current_weapon = 0
 
+var equiped_weapons = [1, 2]
+
 var weapons = {
 	1: "Sword",
 	2: "Scythe"

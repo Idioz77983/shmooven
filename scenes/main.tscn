@@ -197,8 +197,8 @@ bbcode_enabled = true
 text = "[tornado]-- Update Log -- [/tornado]
 
  - Added a backdash
- - Added actual gameplay!"
-fit_content = true
+ - Added actual gameplay!
+ - Accidentally added a grappeling hook"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://hvtxo3crwfxh")
