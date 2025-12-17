@@ -228,7 +228,7 @@ func _physics_process(delta):
 			line_renderer_3d.points[1] = grapple_point
 			velocity += global_position.direction_to(grapple_point)
 			
-			if global_position.distance_to(grapple_point) < 2 or !Input.is_action_pressed("Grapple"):
+			if global_position.distance_to(grapple_point) < 2 or !Input.is_action_pressed("Grapple") or health <= 0:
 				grapple_point = Vector3()
 				line_renderer_3d.visible = false
 				hooked_player = null
@@ -354,6 +354,9 @@ func _on_ability_cooldown_timeout():
 	can_ability = true
 
 func reset_position(going_to_round):
+	grapple_point = Vector3()
+	line_renderer_3d.visible = false
+	hooked_player = null
 	position = Vector3(0, 2, 0)
 	health = 100
 	if going_to_round == false:

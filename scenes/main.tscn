@@ -196,9 +196,7 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[tornado]-- Update Log -- [/tornado]
 
- - Added a backdash
- - Added actual gameplay!
- - Accidentally added a grappeling hook"
+ - Fixed some grappling hook stuff"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://hvtxo3crwfxh")
