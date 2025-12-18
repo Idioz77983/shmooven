@@ -371,6 +371,10 @@ one_shot = true
 [node name="AbilityCooldown" type="Timer" parent="Timers"]
 wait_time = 7.5
 
+[node name="ParryTimer" type="Timer" parent="Timers"]
+wait_time = 10.0
+one_shot = true
+
 [node name="TempPlayerModel" parent="." instance=ExtResource("2_g2els")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.757, 0)
 

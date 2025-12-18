@@ -17,6 +17,7 @@ var available_dashes = 1
 var max_dashes = 1
 var can_wavedash = false
 var score = 0
+var is_parying : bool = false
 
 var health = 100
 var is_dead = false
@@ -79,6 +80,7 @@ func _ready():
 		animation_player.play("Idle")
 		hit_bar.add_exception(self)
 		grapple_cast.add_exception(self)
+		Global.LocalPlayerId = self.name.to_int()
 
 func _input(event):
 	## mouse stuff ##
@@ -211,13 +213,16 @@ func _physics_process(delta):
 			else:
 				attack_damage = hand.weapon_stats[held_weapon]["Damage"]
 		
-		if grapple_cast.is_colliding() and Input.is_action_just_pressed("Grapple"):
-			if grapple_cast.get_collider(0) is CharacterBody3D:
-				hooked_player = grapple_cast.get_collider(0)
-			grapple_point = grapple_cast.get_collision_point(0)
-			
-			line_renderer_3d.visible = true
-			
+		
+		if Input.is_action_just_pressed("Traits"):
+			if grapple_cast.is_colliding() and hand.equiped_weapons.has("Grapple"):
+				if grapple_cast.get_collider(0) is CharacterBody3D:
+					hooked_player = grapple_cast.get_collider(0)
+				grapple_point = grapple_cast.get_collision_point(0)
+				
+				line_renderer_3d.visible = true
+				
+		
 		
 		if grapple_point:
 			
@@ -228,7 +233,7 @@ func _physics_process(delta):
 			line_renderer_3d.points[1] = grapple_point
 			velocity += global_position.direction_to(grapple_point)
 			
-			if global_position.distance_to(grapple_point) < 2 or !Input.is_action_pressed("Grapple") or health <= 0:
+			if global_position.distance_to(grapple_point) < 2 or !Input.is_action_pressed("Traits") or health <= 0:
 				grapple_point = Vector3()
 				line_renderer_3d.visible = false
 				hooked_player = null

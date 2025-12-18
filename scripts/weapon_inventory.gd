@@ -4,8 +4,9 @@ extends Marker3D
 @onready var player = $"../../../../.."
 
 @export var current_weapon = 0
+var current_slot = 0
 
-var equiped_weapons = [1, 2]
+var equiped_weapons = ["Sword", "Parry"]
 
 var weapons = {
 	1: "Sword",
@@ -14,6 +15,7 @@ var weapons = {
 
 var weapon_stats = {
 	"Sword": {
+		"Id": 1,
 		"Damage": 10,
 		"AttSpeed": 0.5,
 		"Range": 2.25,
@@ -22,6 +24,7 @@ var weapon_stats = {
 		"Slowness": 0
 	},
 	"Scythe": {
+		"Id": 2,
 		"Damage": 25,
 		"AttSpeed": 1.5,
 		"Range": 3.0,
@@ -32,6 +35,8 @@ var weapon_stats = {
 }
 
 func switch_weapon(direction: int):
+	print(equiped_weapons[2])
+	
 	if current_weapon == 0 and direction == -1:
 		current_weapon = weapons.size()
 	elif current_weapon == weapons.size() and direction == 1:
