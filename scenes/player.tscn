@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://hvtxo3crwfxh"]
+[gd_scene load_steps=35 format=3 uid="uid://hvtxo3crwfxh"]
 
 [ext_resource type="Script" uid="uid://boee4cdtnk6ht" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bagbmqyntfyo4" path="res://assets/crosshair.png" id="2_d2wvv"]
@@ -28,6 +28,20 @@ content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0, 1, 0, 0.4)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fulsm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4r5pv"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 0.8862745, 0, 0.4)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -241,6 +255,18 @@ value = 100.0
 allow_lesser = true
 show_percentage = false
 
+[node name="OverhealthBar" type="ProgressBar" parent="head/Camera3D/CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_fulsm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4r5pv")
+step = 0.1
+allow_lesser = true
+show_percentage = false
+
 [node name="Score" type="Label" parent="head/Camera3D/CanvasLayer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -365,7 +391,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="WaveDashTimer" type="Timer" parent="Timers"]
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
 
 [node name="AbilityCooldown" type="Timer" parent="Timers"]
@@ -374,6 +400,8 @@ wait_time = 7.5
 [node name="ParryTimer" type="Timer" parent="Timers"]
 wait_time = 10.0
 one_shot = true
+
+[node name="TraitCooldown" type="Timer" parent="Timers"]
 
 [node name="TempPlayerModel" parent="." instance=ExtResource("2_g2els")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.757, 0)

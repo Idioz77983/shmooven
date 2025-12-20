@@ -1,12 +1,11 @@
 extends Marker3D
 
-
 @onready var player = $"../../../../.."
 
 @export var current_weapon = 0
 var current_slot = 0
 
-var equiped_weapons = ["Sword", "Parry"]
+var equiped_weapons = Global.equiped_things
 
 var weapons = {
 	1: "Sword",
@@ -35,15 +34,19 @@ var weapon_stats = {
 }
 
 func switch_weapon(direction: int):
-	print(equiped_weapons[2])
+	print(equiped_weapons[current_slot])
 	
-	if current_weapon == 0 and direction == -1:
-		current_weapon = weapons.size()
-	elif current_weapon == weapons.size() and direction == 1:
-		
+	if current_slot == 0 and direction == -1:
+		current_slot = equiped_weapons.size() -1
+	elif current_slot == equiped_weapons.size() -1 and direction == 1:
+		current_slot = 0
+	else:
+		current_slot += direction
+	
+	if equiped_weapons[current_slot] in Global.Traits:
 		current_weapon = 0
 	else:
-		current_weapon += direction
+		current_weapon = weapon_stats[equiped_weapons[current_slot]]["Id"]
 	
 	for i in $Weapons.get_children():
 		i.hide()

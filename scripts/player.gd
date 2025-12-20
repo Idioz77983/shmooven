@@ -44,6 +44,7 @@ var hooked_player = null
 @onready var attack_cooldown = $Timers/AttackCooldown
 @onready var respawn_timer = $Timers/RespawnTimer
 @onready var health_bar = $head/Camera3D/CanvasLayer/MarginContainer/HealthBar
+@onready var overhealth_bar = $head/Camera3D/CanvasLayer/MarginContainer/OverhealthBar
 @onready var firstperson_models = $head/FirstpersonModels
 @onready var wave_dash_timer = $Timers/WaveDashTimer
 @onready var fpm_anims = $"head/FPM Anims"
@@ -72,15 +73,16 @@ func _ready():
 	$head/Camera3D/CanvasLayer.visible = is_multiplayer_authority()
 	
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	#print(Input.mouse_mode)
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#print(Input.mouse_mode)
 	if is_multiplayer_authority(): 
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		animation_player.play("Idle")
 		hit_bar.add_exception(self)
 		grapple_cast.add_exception(self)
 		Global.LocalPlayerId = self.name.to_int()
+		hand.switch_weapon(0)
 
 func _input(event):
 	## mouse stuff ##
@@ -112,6 +114,7 @@ func _physics_process(delta):
 		ability_icon.visible = can_ability
 		
 		health_bar.value = health
+		overhealth_bar.value = health - 100
 		
 		health = clamp(health, 0, 125)
 		speed = clamp(speed, 0, 24 - slowness)
