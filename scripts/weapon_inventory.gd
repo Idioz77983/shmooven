@@ -9,7 +9,8 @@ var equiped_weapons = Global.equiped_things
 
 var weapons = {
 	1: "Sword",
-	2: "Scythe"
+	2: "Scythe",
+	3: "Bow"
 }
 
 var weapon_stats = {
@@ -30,11 +31,20 @@ var weapon_stats = {
 		"HitboxSize": 1.5,
 		"GravMulti": 1.25,
 		"Slowness": 8
+	},
+	"Bow": {
+		"Id": 3,
+		"Damage": 50,
+		"AttSpeed": 0.5,
+		"Range": 20,
+		"HitboxSize": 0.25,
+		"GravMulti": 1,
+		"Slowness": 0
 	}
 }
 
 func switch_weapon(direction: int):
-	print(equiped_weapons[current_slot])
+	#print(equiped_weapons[current_slot])
 	
 	if current_slot == 0 and direction == -1:
 		current_slot = equiped_weapons.size() -1
@@ -43,7 +53,7 @@ func switch_weapon(direction: int):
 	else:
 		current_slot += direction
 	
-	if equiped_weapons[current_slot] in Global.Traits:
+	if equiped_weapons[current_slot] in Global.Traits or equiped_weapons[current_slot] == "Fist":
 		current_weapon = 0
 	else:
 		current_weapon = weapon_stats[equiped_weapons[current_slot]]["Id"]

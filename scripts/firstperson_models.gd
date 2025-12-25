@@ -10,5 +10,7 @@ func switch_hand_model(WeaponId = 0):
 			$SwordFPM.show()
 		2:
 			$ScytheFPM.show()
+		3:
+			$BowFPM.show()
 		_:
 			return

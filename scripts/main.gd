@@ -16,6 +16,15 @@ var port = 1027
 func _ready():
 	change_map(0)
 
+@warning_ignore("unused_parameter")
+func _process(delta):
+	if Global.equiped_things.is_empty():
+		$CanvasLayer/Host.disabled = true
+		$CanvasLayer/Join.disabled = true
+	else:
+		$CanvasLayer/Host.disabled = false
+		$CanvasLayer/Join.disabled = false
+
 
 func _on_host_pressed():
 	if host_port.text != "":

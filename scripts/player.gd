@@ -30,6 +30,7 @@ var slowness = 0
 var is_in_round = false
 var grapple_point : Vector3
 var hooked_player = null
+var can_trait : bool = true
 
 @onready var head = $head
 @onready var cam = $head/Camera3D
@@ -56,6 +57,10 @@ var hooked_player = null
 @onready var score_label = $head/Camera3D/CanvasLayer/MarginContainer/Score
 @onready var grapple_cast = $head/GrappleCast
 @onready var line_renderer_3d = $"head/GrappleLineFPM Marker/LineRenderer3D"
+@onready var parry_timer = $Timers/ParryTimer
+@onready var trait_cooldown = $Timers/TraitCooldown
+@onready var trait_icon = $head/Camera3D/CanvasLayer/TraitAvailable
+@onready var parry_icon = $head/Camera3D/CanvasLayer/ParrySheild
 
 
 func _enter_tree():
@@ -111,7 +116,12 @@ func _physics_process(delta):
 		else:
 			attack_icon.visible = false
 		
+		parry_icon.visible = is_parying
 		ability_icon.visible = can_ability
+		if Global.HasTraitOn == true:
+			trait_icon.visible = can_trait
+		else:
+			trait_icon.visible = false
 		
 		health_bar.value = health
 		overhealth_bar.value = health - 100
@@ -201,7 +211,7 @@ func _physics_process(delta):
 			$"../".exit_game(name.to_int())
 			get_tree().quit()
 		
-		if Input.is_action_just_pressed("Hit") and can_attack:
+		if Input.is_action_just_pressed("Hit") and can_attack and !is_parying:
 			
 			hit()
 			fpm_anims.stop()
@@ -217,14 +227,20 @@ func _physics_process(delta):
 				attack_damage = hand.weapon_stats[held_weapon]["Damage"]
 		
 		
-		if Input.is_action_just_pressed("Traits"):
-			if grapple_cast.is_colliding() and hand.equiped_weapons.has("Grapple"):
+		if Input.is_action_just_pressed("Traits") and can_trait:
+			if grapple_cast.is_colliding() and Global.equiped_things.has("Grapple"):
+				#print("spider man, spidr man, dos whuteva a spidr kan")
 				if grapple_cast.get_collider(0) is CharacterBody3D:
 					hooked_player = grapple_cast.get_collider(0)
 				grapple_point = grapple_cast.get_collision_point(0)
 				
 				line_renderer_3d.visible = true
-				
+			elif Global.equiped_things.has("Parry"):
+				#print("hey, look at thi- AAAAAAGGGHHHHHHHHH")
+				is_parying = true
+				can_trait = false
+				trait_cooldown.start(10)
+				parry_timer.start(1.5)
 		
 		
 		if grapple_point:
@@ -240,6 +256,8 @@ func _physics_process(delta):
 				grapple_point = Vector3()
 				line_renderer_3d.visible = false
 				hooked_player = null
+				can_trait = false
+				trait_cooldown.start(1.5)
 		
 
 
@@ -297,7 +315,18 @@ func take_damage(damage_amount, attacker):
 	hit_sfx.pitch_scale = randf_range(0.8, 1)
 	hit_sfx.play()
 	
-	health -= damage_amount
+	if !is_parying:
+		health -= damage_amount
+	elif is_parying:
+		if attacker:
+			$"../".send_signal(attacker, "take_damage", damage_amount, self.name)
+			is_parying = false
+		else:
+			can_trait = true
+			velocity.y = JUMP_VELOCITY*4
+			health -= 10
+		
+		speed = 100
 	#print(health)
 	if health <= 0 and !is_dead:
 		is_dead = true
@@ -375,3 +404,11 @@ func reset_position(going_to_round):
 
 func add_point(Amount):
 	score += Amount
+
+
+func _on_parry_timer_timeout():
+	is_parying = false
+
+
+func _on_trait_cooldown_timeout():
+	can_trait = true

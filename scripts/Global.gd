@@ -3,8 +3,9 @@ extends Node
 var LocalPlayerName : String = "Blobert"
 var LocalPlayerId : int
 var IsHost : bool = false
+var HasTraitOn : bool = false
 
-var equiped_things = ["Scythe", "Parry"]
+var equiped_things = []
 
 var Traits = [
 	"Grapple",
@@ -12,5 +13,6 @@ var Traits = [
 ]
 var Weapons = [
 	"Sword",
-	"Scythe"
+	"Scythe",
+	"Bow"
 ]
