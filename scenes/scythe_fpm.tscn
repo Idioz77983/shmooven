@@ -1,8 +1,75 @@
-[gd_scene load_steps=2 format=3 uid="uid://dea3gai8ilirp"]
+[gd_scene load_steps=7 format=3 uid="uid://dea3gai8ilirp"]
 
 [ext_resource type="PackedScene" uid="uid://dnvqoj13lw23f" path="res://assets/Models/Scythe.gltf" id="1_63ct1"]
+[ext_resource type="Script" uid="uid://b52lr6l7r1541" path="res://scripts/scythe.gd" id="2_tlx5e"]
+[ext_resource type="Resource" uid="uid://coijebkjouc7m" path="res://resources/scythe_stats.tres" id="3_jdk02"]
+
+[sub_resource type="Animation" id="Animation_jdk02"]
+resource_name = "Slash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scythe:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 1),
+"transitions": PackedFloat32Array(-2, 2, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.4), Vector3(0, 0, -0.4), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Scythe:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 1),
+"transitions": PackedFloat32Array(-2, 2, 1),
+"update": 0,
+"values": [Vector3(1.3089969, 0, 0), Vector3(1.3089972, 2.0943952, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bjwts"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scythe:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Scythe:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_px658"]
+_data = {
+&"RESET": SubResource("Animation_bjwts"),
+&"Slash": SubResource("Animation_jdk02")
+}
 
 [node name="ScytheFPM" instance=ExtResource("1_63ct1")]
+script = ExtResource("2_tlx5e")
+stats = ExtResource("3_jdk02")
+
+[node name="Scythe" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
 
 [node name="cuboid" parent="Scythe" index="0"]
 cast_shadow = 0
@@ -19,3 +86,8 @@ cast_shadow = 0
 
 [node name="plane" parent="Scythe" index="4"]
 cast_shadow = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_px658")
+}

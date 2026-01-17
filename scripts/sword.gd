@@ -4,3 +4,4 @@ extends Node3D
 
 func ability():
 	player.dash(25, false)
+	player.speed = 50

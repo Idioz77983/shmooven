@@ -86,7 +86,7 @@ shader_parameter/threshold = 0.80000001192096
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -98,7 +98,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath(".:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -108,70 +108,92 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(1, -1.03, -1.025)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, -1.03, -1.025)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.579523, 0.17453292)]
+}
 
-[sub_resource type="Animation" id="Animation_jej6c"]
-resource_name = "ability"
-length = 1.2
+[sub_resource type="Animation" id="Animation_ujl30"]
+resource_name = "ability v2"
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 2
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 1.2),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Vector3(0.007908999, 1.5744845, -0.9599165), Vector3(0.00668496, 1.5764058, -0.69811285), Vector3(-4.223997e-10, 1.579523, 0.17453296)]
+"values": []
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 2
+tracks/1/path = NodePath("..:rotation")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.20000005, 0.6, 1),
-"transitions": PackedFloat32Array(2, 2, 2),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Vector3(1, -1.1299999, -1.0249999), Vector3(1, -1.23, -1.025), Vector3(1, -1.03, -1.025)]
+"values": []
 }
 
-[sub_resource type="Animation" id="Animation_d2wvv"]
-resource_name = "hit"
-length = 0.6
+[sub_resource type="Animation" id="Animation_31cv2"]
+resource_name = "hit 2"
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 2
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Vector3(0.00668496, 1.5764058, -0.69811285), Vector3(0.007908999, 1.5744845, -0.9599165), Vector3(-4.223997e-10, 1.579523, 0.17453296)]
+"values": []
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 2
+tracks/1/path = NodePath("..:rotation")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.3, 0.50000006),
-"transitions": PackedFloat32Array(2, 2, 2),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Vector3(1, -1.23, -1.025), Vector3(1, -1.1299999, -1.0249999), Vector3(1, -1.03, -1.025)]
+"values": []
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jej6c"]
 _data = {
 &"RESET": SubResource("Animation_3v2ag"),
-&"ability": SubResource("Animation_jej6c"),
-&"hit": SubResource("Animation_d2wvv")
+&"ability v2": SubResource("Animation_ujl30"),
+&"hit 2": SubResource("Animation_31cv2")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d2wvv"]
@@ -246,7 +268,7 @@ properties/14/path = NodePath("head/GrappleLineFPM Marker/LineRenderer3D:visible
 properties/14/spawn = true
 properties/14/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D"]
+[node name="PlayerRoot" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 collision_layer = 3
 floor_stop_on_slope = false
@@ -452,7 +474,6 @@ grow_vertical = 2
 transform = Transform3D(-0.0064454656, 0.0011365095, 0.74997145, 0.13023613, 0.7386058, 0, -0.73857766, 0.13023117, -0.0065448973, 1, -1.03, -1.025)
 
 [node name="FirstpersonModels" type="Marker3D" parent="head/FP Hand"]
-transform = Transform3D(-0.008593954, 0.0015153459, 0.9999619, 0.17364822, 0.9848077, 4.223997e-10, -0.98477024, 0.1736416, -0.00872653, 1, -1.03, -1.025)
 script = ExtResource("2_smehm")
 
 [node name="ScytheFPM" parent="head/FP Hand/FirstpersonModels" instance=ExtResource("3_y4r1p")]

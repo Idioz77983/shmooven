@@ -242,9 +242,9 @@ func _physics_process(delta):
 			var held_weapon = hand.weapons[hand.current_weapon]
 			
 			if !is_on_floor() and velocity.y < 0 and held_weapon == "Sword":
-				attack_damage = hand.weapon_stats[held_weapon]["Damage"] * -velocity.y / 2
+				attack_damage = hand.weapon_stats_old[held_weapon]["Damage"] * -velocity.y / 2
 			else:
-				attack_damage = hand.weapon_stats[held_weapon]["Damage"]
+				attack_damage = hand.weapon_stats_old[held_weapon]["Damage"]
 		
 		
 		if Input.is_action_just_pressed("Traits") and can_trait:
@@ -366,15 +366,15 @@ func _on_arm_animator_animation_finished(anim_name):
 func _on_attack_length_timeout():
 	hit_connected = false
 
-func load_weapon_stats(WeaponId):
+func load_weapon_stats_old(WeaponId):
 	if hand.current_weapon != 0:
-		hit_bar.target_position = Vector3(0, 0, -hand.weapon_stats[hand.weapons[WeaponId]]["Range"])
-		attack_damage = hand.weapon_stats[hand.weapons[WeaponId]]["Damage"]
-		attack_speed = hand.weapon_stats[hand.weapons[WeaponId]]["AttSpeed"]
-		hit_bar.shape.size.x = hand.weapon_stats[hand.weapons[WeaponId]]["HitboxSize"]
-		hit_bar.shape.size.y = hand.weapon_stats[hand.weapons[WeaponId]]["HitboxSize"]
-		grav_multi = hand.weapon_stats[hand.weapons[WeaponId]]["GravMulti"]
-		slowness = hand.weapon_stats[hand.weapons[WeaponId]]["Slowness"]
+		hit_bar.target_position = Vector3(0, 0, -hand.weapon_stats_old[hand.weapons[WeaponId]]["Range"])
+		attack_damage = hand.weapon_stats_old[hand.weapons[WeaponId]]["Damage"]
+		attack_speed = hand.weapon_stats_old[hand.weapons[WeaponId]]["AttSpeed"]
+		hit_bar.shape.size.x = hand.weapon_stats_old[hand.weapons[WeaponId]]["HitboxSize"]
+		hit_bar.shape.size.y = hand.weapon_stats_old[hand.weapons[WeaponId]]["HitboxSize"]
+		grav_multi = hand.weapon_stats_old[hand.weapons[WeaponId]]["GravMulti"]
+		slowness = hand.weapon_stats_old[hand.weapons[WeaponId]]["Slowness"]
 	elif hand.current_weapon == 0:
 		hit_bar.target_position = Vector3(0, 0, 0)
 		attack_damage = 0

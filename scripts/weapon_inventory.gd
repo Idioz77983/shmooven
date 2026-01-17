@@ -13,7 +13,7 @@ var weapons = {
 	3: "Bow"
 }
 
-var weapon_stats = {
+var weapon_stats_old = {
 	"Sword": {
 		"Id": 1,
 		"Damage": 10,
@@ -30,7 +30,7 @@ var weapon_stats = {
 		"Range": 3.0,
 		"HitboxSize": 1.5,
 		"GravMulti": 1.25,
-		"Slowness": 8
+		"Slowness": 4
 	},
 	"Bow": {
 		"Id": 3,
@@ -39,7 +39,7 @@ var weapon_stats = {
 		"Range": 20,
 		"HitboxSize": 0.25,
 		"GravMulti": 1,
-		"Slowness": 0
+		"Slowness": -5
 	}
 }
 
