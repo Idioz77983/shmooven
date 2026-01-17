@@ -38,6 +38,13 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": false,
+"use_external/fallback_path": "res://assets/Models/material_0.tres",
+"use_external/path": "uid://y37q8dyqrwa4"
+}
+},
 "meshes": {
 "blockbench_export_mesh": {
 "generate/lightmap_uv": 2,

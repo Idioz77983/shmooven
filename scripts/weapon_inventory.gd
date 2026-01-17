@@ -56,13 +56,13 @@ func switch_weapon(direction: int):
 	if equiped_weapons[current_slot] in Global.Traits or equiped_weapons[current_slot] == "Fist":
 		current_weapon = 0
 	else:
-		current_weapon = weapon_stats[equiped_weapons[current_slot]]["Id"]
+		current_weapon = weapon_stats_old[equiped_weapons[current_slot]]["Id"]
 	
 	for i in $Weapons.get_children():
 		i.hide()
 	if current_weapon != 0: $Weapons.get_node(weapons[current_weapon]).show()
 	
-	player.load_weapon_stats(current_weapon)
+	player.load_weapon_stats_old(current_weapon)
 	#print(current_weapon)
 
 func get_weapon(Id : int) -> Object:

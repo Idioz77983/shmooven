@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="weapon_stats" load_steps=2 format=3 uid="uid://drgk3bf4tefqd"]
+
+[ext_resource type="Script" uid="uid://ddx6mqhs6571w" path="res://resources/weapon_stats_res.gd" id="1_5jcpn"]
+
+[resource]
+script = ExtResource("1_5jcpn")
+id = 3
+animation_names = Dictionary[int, String]({
+0: "DrawBack",
+2: "DrawBack2",
+3: "DrawBack3"
+})
+type = 1
+metadata/_custom_type_script = "uid://ddx6mqhs6571w"

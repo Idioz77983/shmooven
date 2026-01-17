@@ -33,6 +33,7 @@ var hooked_player = null
 var can_trait : bool = true
 var grapple_stam : float = 100
 var can_regen_stam : bool = true
+var hand_y_jiggle : float = 0.0
 
 @onready var head = $head
 @onready var cam = $head/Camera3D
@@ -46,25 +47,26 @@ var can_regen_stam : bool = true
 @onready var attack_length = $Timers/AttackLength
 @onready var attack_cooldown = $Timers/AttackCooldown
 @onready var respawn_timer = $Timers/RespawnTimer
-@onready var health_bar = $head/Camera3D/CanvasLayer/MarginContainer/HealthBar
-@onready var overhealth_bar = $head/Camera3D/CanvasLayer/MarginContainer/OverhealthBar
+@onready var health_bar = $head/Camera3D/UI/MarginContainer/HealthBar
+@onready var overhealth_bar = $head/Camera3D/UI/MarginContainer/OverhealthBar
 @onready var firstperson_models = $"head/FP Hand/FirstpersonModels"
 @onready var wave_dash_timer = $Timers/WaveDashTimer
 @onready var fpm_anims = $"head/FPM Anims"
 @onready var ability_cooldown = $Timers/AbilityCooldown
 @onready var hit_sfx = $SoundFX/hit_sfx
 @onready var death_sfx = $SoundFX/death_sfx
-@onready var attack_icon = $head/Camera3D/CanvasLayer/CanAttack
-@onready var ability_icon = $head/Camera3D/CanvasLayer/AbilityAvailable
-@onready var score_label = $head/Camera3D/CanvasLayer/MarginContainer/Score
+@onready var attack_icon = $head/Camera3D/UI/CanAttack
+@onready var ability_icon = $head/Camera3D/UI/AbilityAvailable
+@onready var score_label = $head/Camera3D/UI/MarginContainer/Score
 @onready var grapple_cast = $head/GrappleCast
 @onready var line_renderer_3d = $"head/GrappleLineFPM Marker/LineRenderer3D"
 @onready var parry_timer = $Timers/ParryTimer
 @onready var trait_cooldown = $Timers/TraitCooldown
-@onready var trait_icon = $head/Camera3D/CanvasLayer/TraitAvailable
-@onready var parry_icon = $head/Camera3D/CanvasLayer/ParrySheild
-@onready var grapple_stamina_bar: ProgressBar = $head/Camera3D/CanvasLayer/GrappleStaminaBar
-@onready var round_timer: RichTextLabel = $head/Camera3D/CanvasLayer/RoundTimer
+@onready var trait_icon = $head/Camera3D/UI/TraitAvailable
+@onready var parry_icon = $head/Camera3D/UI/ParrySheild
+@onready var grapple_stamina_bar: ProgressBar = $head/Camera3D/UI/GrappleStaminaBar
+@onready var round_timer: RichTextLabel = $head/Camera3D/UI/RoundTimer
+@onready var fp_hand: Marker3D = $"head/FP Hand"
 
 
 func _enter_tree():
@@ -79,7 +81,7 @@ func _ready():
 	firstperson_models.visible = is_multiplayer_authority()
 	#arm_anims.play("HoldingItem")
 	nametag.visible = !is_multiplayer_authority()
-	$head/Camera3D/CanvasLayer.visible = is_multiplayer_authority()
+	$head/Camera3D/UI.visible = is_multiplayer_authority()
 	
 	
 	#print(Input.mouse_mode)
@@ -96,7 +98,7 @@ func _ready():
 func _input(event):
 	## mouse stuff ##
 	if is_multiplayer_authority():
-		if event is InputEventMouseMotion and Input.mouse_mode == 2 and is_multiplayer_authority():
+		if event is InputEventMouseMotion and Input.mouse_mode == 2:
 			rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 			head.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 			head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
@@ -150,6 +152,8 @@ func _physics_process(delta):
 			velocity.y += gravity * delta * grav_multi
 			friction = 0.01
 		else:
+			if hand_y_jiggle > 0:
+				hand_y_jiggle = -0.25
 			friction = 0.1
 			can_regen_stam = true
 		
@@ -167,6 +171,7 @@ func _physics_process(delta):
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
+			hand_y_jiggle = -0.1
 			if can_dash == false and can_wavedash == true:
 				dash_timer.stop()
 				speed *= 1.25
@@ -213,10 +218,12 @@ func _physics_process(delta):
 			velocity.z = lerp(velocity.z, direction.z * speed * 1.25, friction)
 		
 		cam.fov = lerp(cam.fov, Global.default_FOV + (speed-6), friction)
-#		firstperson_models.position.y = lerp(firstperson_models.position.y, )
+		hand_y_jiggle = lerp(hand_y_jiggle, -velocity.y/16, 0.05)
+		hand_y_jiggle = clamp(hand_y_jiggle, -0.5, 0.5)
+		firstperson_models.position.y = lerp(firstperson_models.position.y, hand_y_jiggle, 0.1)
 		
-		move_and_slide()
 		
+		##-- START OF key things --##
 		if Input.is_key_pressed(KEY_ESCAPE) and has_esc_been_pressed == false:
 			if Input.mouse_mode == 2:
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -226,7 +233,7 @@ func _physics_process(delta):
 		elif !Input.is_key_pressed(KEY_ESCAPE) and has_esc_been_pressed == true:
 			has_esc_been_pressed = false
 		
-		## just here for leaving a multiplayer instance ##
+		# just here for leaving a multiplayer instance #
 		if Input.is_action_just_pressed("quit"):
 			$"../".exit_game(name.to_int())
 			get_tree().quit()
@@ -236,7 +243,8 @@ func _physics_process(delta):
 			hit()
 			fpm_anims.stop()
 			fpm_anims.play("hit")
-			
+		##-- END OF key things --##
+		
 		
 		if hand.current_weapon != 0:
 			var held_weapon = hand.weapons[hand.current_weapon]
@@ -279,7 +287,9 @@ func _physics_process(delta):
 				grapple_point = Vector3()
 				line_renderer_3d.visible = false
 				hooked_player = null
+				can_dash = true
 		
+		move_and_slide()
 
 
 func _on_dash_timer_timeout():

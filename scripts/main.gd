@@ -14,7 +14,7 @@ var port = 1027
 @onready var round_time = $"Host Info/Control/MarginContainer/VBoxContainer/RoundTime"
 
 func _ready():
-	change_map(0)
+	change_map(2)
 
 @warning_ignore("unused_parameter")
 func _process(delta):

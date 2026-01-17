@@ -185,9 +185,11 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[tornado]-- Update Log -- [/tornado]
 
- - Added a new stamina system to the grappling hook
- - Changed the parry window
- - FINALLY added a round timer"
+ - BIIIG graphic overhaul
+ - Extreamly W.I.P map, Tundrum
+ - Gave swords ability a speed burst
+ - Fixed a grapple bug
+ - "
 
 [node name="ThingSelection" type="ScrollContainer" parent="CanvasLayer"]
 anchors_preset = 3
