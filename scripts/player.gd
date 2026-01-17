@@ -31,6 +31,8 @@ var is_in_round = false
 var grapple_point : Vector3
 var hooked_player = null
 var can_trait : bool = true
+var grapple_stam : float = 100
+var can_regen_stam : bool = true
 
 @onready var head = $head
 @onready var cam = $head/Camera3D
@@ -46,7 +48,7 @@ var can_trait : bool = true
 @onready var respawn_timer = $Timers/RespawnTimer
 @onready var health_bar = $head/Camera3D/CanvasLayer/MarginContainer/HealthBar
 @onready var overhealth_bar = $head/Camera3D/CanvasLayer/MarginContainer/OverhealthBar
-@onready var firstperson_models = $head/FirstpersonModels
+@onready var firstperson_models = $"head/FP Hand/FirstpersonModels"
 @onready var wave_dash_timer = $Timers/WaveDashTimer
 @onready var fpm_anims = $"head/FPM Anims"
 @onready var ability_cooldown = $Timers/AbilityCooldown
@@ -61,6 +63,8 @@ var can_trait : bool = true
 @onready var trait_cooldown = $Timers/TraitCooldown
 @onready var trait_icon = $head/Camera3D/CanvasLayer/TraitAvailable
 @onready var parry_icon = $head/Camera3D/CanvasLayer/ParrySheild
+@onready var grapple_stamina_bar: ProgressBar = $head/Camera3D/CanvasLayer/GrappleStaminaBar
+@onready var round_timer: RichTextLabel = $head/Camera3D/CanvasLayer/RoundTimer
 
 
 func _enter_tree():
@@ -118,23 +122,39 @@ func _physics_process(delta):
 		
 		parry_icon.visible = is_parying
 		ability_icon.visible = can_ability
-		if Global.HasTraitOn == true:
+		if Global.HasTraitOn == true and !Global.equiped_things.has("Grapple"):
 			trait_icon.visible = can_trait
 		else:
 			trait_icon.visible = false
+		grapple_stamina_bar.visible = grapple_stam < 150
 		
 		health_bar.value = health
 		overhealth_bar.value = health - 100
+		grapple_stamina_bar.value = grapple_stam
 		
 		health = clamp(health, 0, 125)
 		speed = clamp(speed, 0, 24 - slowness)
+		
+		if Global.RoundTime > 0:
+			if Global.RoundTime%60 <= 9:
+				@warning_ignore("integer_division")
+				round_timer.text = "[wave]"+str(Global.RoundTime/60)+":0"+str(Global.RoundTime%60)
+			else:
+				@warning_ignore("integer_division")
+				round_timer.text = "[wave]"+str(Global.RoundTime/60)+":"+str(Global.RoundTime%60)
+		else:
+			round_timer.text = "[wave]:P"
 		
 		# Add the gravity.
 		if not is_on_floor():
 			velocity.y += gravity * delta * grav_multi
 			friction = 0.01
 		else:
-			friction = 0.1 
+			friction = 0.1
+			can_regen_stam = true
+		
+		if grapple_stam < 150 and can_regen_stam:
+				grapple_stam += 0.5
 		
 		if is_dashing == false and is_on_floor():
 			can_dash = true
@@ -191,9 +211,9 @@ func _physics_process(delta):
 		elif !is_on_floor():
 			velocity.x = lerp(velocity.x, direction.x * speed * 1.25, friction)
 			velocity.z = lerp(velocity.z, direction.z * speed * 1.25, friction)
-		#else:
-		#	velocity.x = lerp(velocity.x, 0.0, friction)
-		#	velocity.z = lerp(velocity.z, 0.0, friction)
+		
+		cam.fov = lerp(cam.fov, Global.default_FOV + (speed-6), friction)
+#		firstperson_models.position.y = lerp(firstperson_models.position.y, )
 		
 		move_and_slide()
 		
@@ -228,11 +248,12 @@ func _physics_process(delta):
 		
 		
 		if Input.is_action_just_pressed("Traits") and can_trait:
-			if grapple_cast.is_colliding() and Global.equiped_things.has("Grapple"):
+			if Global.equiped_things.has("Grapple") and grapple_cast.is_colliding() and grapple_stam > 0:
 				#print("spider man, spidr man, dos whuteva a spidr kan")
 				if grapple_cast.get_collider(0) is CharacterBody3D:
 					hooked_player = grapple_cast.get_collider(0)
 				grapple_point = grapple_cast.get_collision_point(0)
+				can_regen_stam = false
 				
 				line_renderer_3d.visible = true
 			elif Global.equiped_things.has("Parry"):
@@ -240,7 +261,7 @@ func _physics_process(delta):
 				is_parying = true
 				can_trait = false
 				trait_cooldown.start(10)
-				parry_timer.start(1.5)
+				parry_timer.start(0.75)
 		
 		
 		if grapple_point:
@@ -252,12 +273,12 @@ func _physics_process(delta):
 			line_renderer_3d.points[1] = grapple_point
 			velocity += global_position.direction_to(grapple_point)
 			
-			if global_position.distance_to(grapple_point) < 2 or !Input.is_action_pressed("Traits") or health <= 0:
+			grapple_stam -= 1
+			
+			if global_position.distance_to(grapple_point) < 2 or !Input.is_action_pressed("Traits") or health <= 0 or grapple_stam <= 0:
 				grapple_point = Vector3()
 				line_renderer_3d.visible = false
 				hooked_player = null
-				can_trait = false
-				trait_cooldown.start(1.5)
 		
 
 
@@ -275,6 +296,7 @@ func dash(dash_speed : int, additive = true):
 	else:
 		velocity += dash_velocity
 	
+	cam.fov += float(dash_speed)/4
 	dash_timer.paused = false
 	is_dashing = true
 	can_dash = false

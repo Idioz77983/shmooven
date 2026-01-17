@@ -1,0 +1,108 @@
+[gd_scene load_steps=14 format=3 uid="uid://l2ghianop0u2"]
+
+[ext_resource type="Material" uid="uid://dcmnilakc5vev" path="res://assets/Materials/temp_texture.material" id="1_lnmi4"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lnmi4"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_sugp2"]
+sky_material = SubResource("ProceduralSkyMaterial_lnmi4")
+
+[sub_resource type="Environment" id="Environment_kabrj"]
+background_mode = 2
+sky = SubResource("Sky_sugp2")
+ambient_light_source = 3
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(1, 1, 1, 1)
+fog_light_energy = 0.5
+fog_density = 0.02
+volumetric_fog_density = 0.1
+volumetric_fog_detail_spread = 0.5
+adjustment_enabled = true
+adjustment_contrast = 2.0
+adjustment_saturation = 0.8
+
+[sub_resource type="Gradient" id="Gradient_lnmi4"]
+offsets = PackedFloat32Array(0.009433962, 0.44339624, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.8620719, 0.8620719, 0.86207175, 1, 0.7411765, 0.7411765, 0.7411765, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h2hq7"]
+gradient = SubResource("Gradient_lnmi4")
+
+[sub_resource type="Curve" id="Curve_kabrj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.48314613), -0.07415728, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h2hq7"]
+curve = SubResource("Curve_kabrj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b6gjn"]
+emission_shape = 3
+emission_box_extents = Vector3(32, 2, 32)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 6.0
+gravity = Vector3(0, -5.5, 0)
+radial_accel_min = -4.0000024
+radial_accel_max = 3.9999976
+tangential_accel_min = -8.000002
+tangential_accel_max = 7.9999976
+damping_max = 4.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_h2hq7")
+color = Color(0.87761563, 0.87761587, 0.8776152, 1)
+color_ramp = SubResource("GradientTexture1D_h2hq7")
+
+[sub_resource type="Gradient" id="Gradient_slcha"]
+offsets = PackedFloat32Array(0.6363636, 0.6636364)
+colors = PackedColorArray(1, 1, 1, 1, 0.6666667, 0.6666667, 0.6666667, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6u8oc"]
+gradient = SubResource("Gradient_slcha")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7wjy6"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_6u8oc")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_dvr8i"]
+material = SubResource("StandardMaterial3D_7wjy6")
+size = Vector2(0.5, 0.5)
+
+[node name="Map" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+material_override = ExtResource("1_lnmi4")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.25, 5, 7.5)
+size = Vector3(8.5, 9, 10)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.8660253, 0.49999997, 0, -0.49999997, 0.8660253, -10, 0.60000026, -2.7641013)
+size = Vector3(5, 10, 18)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kabrj")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 0)
+amount = 1028
+lifetime = 15.0
+speed_scale = 2.1
+explosiveness = 0.01
+visibility_aabb = AABB(-677.6456, -1005.4209, -610.9091, 1294.8922, 1007.9083, 1210.0193)
+trail_lifetime = 4.319999999999999
+process_material = SubResource("ParticleProcessMaterial_b6gjn")
+draw_pass_1 = SubResource("QuadMesh_dvr8i")

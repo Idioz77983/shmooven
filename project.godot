@@ -25,6 +25,10 @@ window/size/extend_to_title=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/LineRenderer/plugin.cfg")
+
 [input]
 
 forward={
@@ -94,8 +98,11 @@ Traits={
 3d_render/layer_1="Default"
 3d_render/layer_2="Weapon"
 
+[physics]
+
+common/physics_jitter_fix=0.0
+common/physics_interpolation=true
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"

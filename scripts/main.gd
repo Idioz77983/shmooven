@@ -18,6 +18,8 @@ func _ready():
 
 @warning_ignore("unused_parameter")
 func _process(delta):
+	Global.RoundTime = round_timer.time_left
+	
 	if Global.equiped_things.is_empty():
 		$CanvasLayer/Host.disabled = true
 		$CanvasLayer/Join.disabled = true
@@ -126,7 +128,7 @@ func _on_start_round_pressed():
 	else:
 		round_length = 120
 	round_time.text = ""
-	rpc("change_map", 1)
+	rpc("change_map", randi_range(1, Maps.size()-1))
 	rpc("reset_player_positions", true)
 	round_timer.start(round_length)
 

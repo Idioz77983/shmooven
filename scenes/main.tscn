@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxdjs3yheus65"]
+[gd_scene load_steps=10 format=3 uid="uid://dxdjs3yheus65"]
 
 [ext_resource type="Script" uid="uid://cac3yu1n3odtl" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://hvtxo3crwfxh" path="res://scenes/player.tscn" id="2_sugp2"]
@@ -6,19 +6,8 @@
 [ext_resource type="Script" uid="uid://84ju30ilyq40" path="res://scenes/void.gd" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://hl2r7nlkbq7y" path="res://scenes/Maps/map_for_testing.tscn" id="4_tbgi4"]
 [ext_resource type="Script" uid="uid://bo0mwx83oml2r" path="res://scripts/thing_selection_menu.gd" id="5_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://l2ghianop0u2" path="res://scenes/Maps/alps.tscn" id="5_tipki"]
 [ext_resource type="Script" uid="uid://0jq1jpil0hid" path="res://scripts/thing_select.gd" id="6_tipki"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_sugp2"]
-sky_material = SubResource("ProceduralSkyMaterial_0wfyh")
-
-[sub_resource type="Environment" id="Environment_jyhfs"]
-background_mode = 2
-sky = SubResource("Sky_sugp2")
-tonemap_mode = 2
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tbgi4"]
 
@@ -27,11 +16,9 @@ script = ExtResource("1_sugp2")
 player_scene = ExtResource("2_sugp2")
 Maps = Dictionary[int, PackedScene]({
 0: ExtResource("3_jyhfs"),
-1: ExtResource("4_tbgi4")
+1: ExtResource("4_tbgi4"),
+2: ExtResource("5_tipki")
 })
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_jyhfs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -198,13 +185,9 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[tornado]-- Update Log -- [/tornado]
 
- - Fixed some grappling hook stuff
- - Fixed the un-focusing mouse bug when someone joins
- - Added an overhealth bar to the ui
- - Added a parry trait
- - Put a Thing Select™ on the main screen for now
- - Switched some gears around to balance things
- - Removed Herobrine"
+ - Added a new stamina system to the grappling hook
+ - Changed the parry window
+ - FINALLY added a round timer"
 
 [node name="ThingSelection" type="ScrollContainer" parent="CanvasLayer"]
 anchors_preset = 3
@@ -262,7 +245,6 @@ script = ExtResource("6_tipki")
 thing = "Scythe"
 
 [node name="bowmb" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons/GridContainer"]
-visible = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 toggle_mode = true
