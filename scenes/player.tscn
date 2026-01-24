@@ -21,11 +21,11 @@
 [ext_resource type="Shader" uid="uid://bp674m2m00exb" path="res://scripts/shaders/vhs.gdshader" id="8_ke2ow"]
 [ext_resource type="Script" uid="uid://85fxs453u4bo" path="res://addons/LineRenderer/line_renderer.gd" id="9_4r5pv"]
 [ext_resource type="Shader" uid="uid://dqu7ojexfyrmk" path="res://scripts/shaders/vhs2.gdshader" id="9_ujl30"]
-[ext_resource type="Script" uid="uid://b52lr6l7r1541" path="res://scripts/scythe.gd" id="11_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://dvlvfauul814u" path="res://assets/Sounds/8 Player Critical Attack Nr 1 Minecraft Sound - Sound Effect for.mp3" id="12_jej6c"]
 [ext_resource type="AudioStream" uid="uid://ckjnxws20bebh" path="res://assets/Sounds/fading a-.mp3" id="13_f1ej7"]
+[ext_resource type="Resource" uid="uid://cu0fjqk3spgb6" path="res://resources/Weapon Stats/sword_stats.tres" id="14_ke2ow"]
 [ext_resource type="PackedScene" uid="uid://dsk18jgylakhm" path="res://assets/Models/bow.gltf" id="16_60mlk"]
-[ext_resource type="Script" uid="uid://jplu3i4gu3yh" path="res://scripts/bow.gd" id="17_i4ail"]
+[ext_resource type="AudioStream" uid="uid://cvch0p3m87yjq" path="res://assets/Sounds/hero_parry.wav" id="26_ujl30"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g2els"]
 size = Vector3(0.75, 1.4995117, 0.75)
@@ -134,7 +134,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ujl30"]
-resource_name = "ability v2"
+resource_name = "ability"
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -162,7 +162,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_31cv2"]
-resource_name = "hit 2"
+resource_name = "hit"
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -192,8 +192,8 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jej6c"]
 _data = {
 &"RESET": SubResource("Animation_3v2ag"),
-&"ability v2": SubResource("Animation_ujl30"),
-&"hit 2": SubResource("Animation_31cv2")
+&"ability": SubResource("Animation_ujl30"),
+&"hit": SubResource("Animation_31cv2")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d2wvv"]
@@ -208,7 +208,7 @@ shading_mode = 0
 albedo_color = Color(0.458824, 1, 1, 1)
 albedo_texture = ExtResource("8_fulsm")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ujl30"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_31cv2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3vyb7"]
 radius = 0.375
@@ -481,6 +481,8 @@ script = ExtResource("2_smehm")
 [node name="SwordFPM" parent="head/FP Hand/FirstpersonModels" instance=ExtResource("4_d2wvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 visible = false
+script = ExtResource("5_fjrip")
+stats = ExtResource("14_ke2ow")
 
 [node name="BowFPM" parent="head/FP Hand/FirstpersonModels" instance=ExtResource("8_i4ail")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -512,7 +514,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.03, -1.025)
 transform = Transform3D(-0.006445462, 0.001136509, 0.7499715, 0.13023607, 0.73860544, 3.1679978e-10, -0.7385772, 0.13023114, -0.0065448973, 2, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_60mlk")
-mesh = SubResource("ImmediateMesh_ujl30")
+mesh = SubResource("ImmediateMesh_31cv2")
 skeleton = NodePath("../../FP Hand/FirstpersonModels")
 script = ExtResource("9_4r5pv")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 1, 0)])
@@ -581,17 +583,14 @@ transform = Transform3D(1, 0, -1.7729154e-12, 2.9802322e-08, 0.99999994, 0, 0, 0
 [node name="Sword" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" instance=ExtResource("3_qhqgy")]
 transform = Transform3D(2.9802322e-08, -6.556708e-08, 1.5000001, -1.5000001, -6.556708e-08, -5.9604645e-08, 6.556708e-08, -1.5, -6.556708e-08, 0, 0, 0)
 visible = false
-script = ExtResource("5_fjrip")
 
 [node name="Scythe" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" instance=ExtResource("4_dqkch")]
 transform = Transform3D(-4.675154e-20, -5.9604645e-08, 1.5000001, -1.4488889, 0.38822865, -5.9604645e-08, -0.38822865, -1.4488889, -6.556708e-08, 0, 0, 0)
 visible = false
-script = ExtResource("11_f1ej7")
 
 [node name="Bow" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" instance=ExtResource("16_60mlk")]
 transform = Transform3D(0, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.3711385e-08, 0, 0, 0)
 visible = false
-script = ExtResource("17_i4ail")
 
 [node name="Nametag" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -605,9 +604,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="hit_sfx" type="AudioStreamPlayer3D" parent="SoundFX"]
 stream = ExtResource("12_jej6c")
+bus = &"SFX"
 
 [node name="death_sfx" type="AudioStreamPlayer3D" parent="SoundFX"]
 stream = ExtResource("13_f1ej7")
+bus = &"SFX"
+
+[node name="parry_sfx" type="AudioStreamPlayer3D" parent="SoundFX"]
+stream = ExtResource("26_ujl30")
 
 [connection signal="animation_finished" from="head/FPM Anims" to="." method="_on_fpm_anims_animation_finished"]
 [connection signal="timeout" from="Timers/DashAnimTimer" to="." method="_on_dash_timer_timeout"]

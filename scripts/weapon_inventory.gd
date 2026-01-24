@@ -16,7 +16,7 @@ var weapons = {
 var weapon_stats_old = {
 	"Sword": {
 		"Id": 1,
-		"Damage": 10,
+		"Damage": 15,
 		"AttSpeed": 0.5,
 		"Range": 2.25,
 		"HitboxSize": 1,

@@ -188,8 +188,8 @@ text = "[tornado]-- Update Log -- [/tornado]
  - BIIIG graphic overhaul
  - Extreamly W.I.P map, Tundrum
  - Gave swords ability a speed burst
- - Fixed a grapple bug
- - "
+ - Fixed a grapple bug where you could regen your stamina in the air
+ - Fixed joining into the wrong map, like loading into the lobby during a round"
 
 [node name="ThingSelection" type="ScrollContainer" parent="CanvasLayer"]
 anchors_preset = 3

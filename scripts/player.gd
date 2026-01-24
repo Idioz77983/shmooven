@@ -53,8 +53,6 @@ var hand_y_jiggle : float = 0.0
 @onready var wave_dash_timer = $Timers/WaveDashTimer
 @onready var fpm_anims = $"head/FPM Anims"
 @onready var ability_cooldown = $Timers/AbilityCooldown
-@onready var hit_sfx = $SoundFX/hit_sfx
-@onready var death_sfx = $SoundFX/death_sfx
 @onready var attack_icon = $head/Camera3D/UI/CanAttack
 @onready var ability_icon = $head/Camera3D/UI/AbilityAvailable
 @onready var score_label = $head/Camera3D/UI/MarginContainer/Score
@@ -67,6 +65,12 @@ var hand_y_jiggle : float = 0.0
 @onready var grapple_stamina_bar: ProgressBar = $head/Camera3D/UI/GrappleStaminaBar
 @onready var round_timer: RichTextLabel = $head/Camera3D/UI/RoundTimer
 @onready var fp_hand: Marker3D = $"head/FP Hand"
+
+## sounds cuz >:3 ##
+@onready var hit_sfx: AudioStreamPlayer3D = $SoundFX/hit_sfx
+@onready var death_sfx: AudioStreamPlayer3D = $SoundFX/death_sfx
+@onready var parry_sfx: AudioStreamPlayer3D = $SoundFX/parry_sfx
+
 
 
 func _enter_tree():
@@ -239,10 +243,10 @@ func _physics_process(delta):
 			get_tree().quit()
 		
 		if Input.is_action_just_pressed("Hit") and can_attack and !is_parying:
+			#AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), 1)
 			
 			hit()
-			fpm_anims.stop()
-			fpm_anims.play("hit")
+			firstperson_models.get_weapon(hand.current_weapon).play_anim(0)
 		##-- END OF key things --##
 		
 		
@@ -265,6 +269,7 @@ func _physics_process(delta):
 				
 				line_renderer_3d.visible = true
 			elif Global.equiped_things.has("Parry"):
+				parry_sfx.play()
 				#print("hey, look at thi- AAAAAAGGGHHHHHHHHH")
 				is_parying = true
 				can_trait = false
@@ -335,13 +340,13 @@ func hit(lifesteal = false, extra_damage = 0):
 		attack_cooldown.start(attack_speed)
 
 func ability():
-	var weapon_in_use = hand.get_weapon(hand.current_weapon)
+	var weapon_in_use = firstperson_models.get_weapon(hand.current_weapon)
 	if  weapon_in_use != null:
 		if weapon_in_use.has_method("ability"):
 			weapon_in_use.ability()
 			ability_cooldown.start()
 			can_ability = false
-		fpm_anims.play("ability")
+		firstperson_models.get_weapon(hand.current_weapon).play_anim(1)
 
 func take_damage(damage_amount, attacker):
 	hit_sfx.pitch_scale = randf_range(0.8, 1)

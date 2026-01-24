@@ -14,3 +14,9 @@ func switch_hand_model(WeaponId = 0):
 			$BowFPM.show()
 		_:
 			return
+	
+
+func get_weapon(id):
+	for weapon in get_children():
+		if weapon.stats.id == id:
+			return weapon

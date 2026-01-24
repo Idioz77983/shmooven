@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnplu00oudrbk"]
+[gd_scene load_steps=3 format=3 uid="uid://dnplu00oudrbk"]
 
 [ext_resource type="PackedScene" uid="uid://dsk18jgylakhm" path="res://assets/Models/bow.gltf" id="1_36yww"]
+[ext_resource type="Script" uid="uid://jplu3i4gu3yh" path="res://scripts/bow.gd" id="2_h0eiy"]
 
 [node name="BowFPM" instance=ExtResource("1_36yww")]
+script = ExtResource("2_h0eiy")
 
 [node name="Arrow" parent="Bow" index="1"]
 visible = false

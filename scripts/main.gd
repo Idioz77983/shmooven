@@ -2,6 +2,7 @@ extends Node3D
 
 var peer = ENetMultiplayerPeer.new()
 var port = 1027
+var current_map = -1
 @export var player_scene : PackedScene
 @export var Maps : Dictionary[int, PackedScene] = {}
 @onready var join_ip = $CanvasLayer/joinIp
@@ -14,7 +15,7 @@ var port = 1027
 @onready var round_time = $"Host Info/Control/MarginContainer/VBoxContainer/RoundTime"
 
 func _ready():
-	change_map(2)
+	change_map(0)
 
 @warning_ignore("unused_parameter")
 func _process(delta):
@@ -63,6 +64,9 @@ func add_player(id = 1):
 	var player = player_scene.instantiate()
 	player.name = str(id)
 	call_deferred("add_child", player)
+	
+	if Global.IsHost == true:
+		rpc("change_map", current_map)
 
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
@@ -93,13 +97,14 @@ func _send_signal(id, signal_name, parameter = null, parameter2 = null):
 
 @rpc("any_peer", "call_local")
 func change_map(map_id):
-	if get_node("Map"):
-		get_node("Map").name = "old_map"
-		get_node("old_map").queue_free()
-	var map_to_add = Maps[map_id].instantiate()
-	map_to_add.name = "Map"
-	add_child(map_to_add, true)
-	
+	if current_map != map_id:
+		current_map = map_id
+		if get_node("Map"):
+			get_node("Map").name = "old_map"
+			get_node("old_map").queue_free()
+		var map_to_add = Maps[map_id].instantiate()
+		map_to_add.name = "Map"
+		add_child(map_to_add, true)
 
 @rpc("any_peer", "call_local")
 func reset_player_positions(going_into_round = false):

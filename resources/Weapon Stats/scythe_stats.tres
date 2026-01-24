@@ -12,6 +12,7 @@ hitbox_size = 1.5
 grav_multi = 1.25
 slowness = 4.0
 animation_names = Dictionary[int, String]({
-0: "Slash"
+0: "Slash",
+1: "Reap n Sow"
 })
 metadata/_custom_type_script = "uid://ddx6mqhs6571w"
