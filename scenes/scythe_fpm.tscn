@@ -55,34 +55,6 @@ tracks/3/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_jdk02"]
-resource_name = "Slash"
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Scythe:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.14, 0.54, 1),
-"transitions": PackedFloat32Array(-2, -2, -2, -2),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.4), Vector3(0, 0, -0.4), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Scythe:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.23, 0.53, 1),
-"transitions": PackedFloat32Array(-2, -2, -2, -2),
-"update": 0,
-"values": [Vector3(0.26077995, 0.09032845, 0.023349065), Vector3(1.3089974, 0.26179948, 2.878686e-08), Vector3(1.3089972, 2.0943952, 0), Vector3(0.26077995, 0.09032845, 0.023349065)]
-}
-
 [sub_resource type="Animation" id="Animation_px658"]
 resource_name = "Reap n Sow"
 tracks/0/type = "value"
@@ -132,6 +104,34 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, -6.2831855)]
+}
+
+[sub_resource type="Animation" id="Animation_jdk02"]
+resource_name = "Slash"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scythe:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.54, 1),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.4), Vector3(0, 0, -0.4), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Scythe:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23, 0.53, 1),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(0.26077995, 0.09032845, 0.023349065), Vector3(1.3089974, 0.26179948, 2.878686e-08), Vector3(1.3089972, 2.0943952, 0), Vector3(0.26077995, 0.09032845, 0.023349065)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_px658"]

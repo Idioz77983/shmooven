@@ -21,3 +21,6 @@ var Weapons = [
 
 ## Settings stuff ##
 var default_FOV : float = 90
+var disable_cooldowns : bool = false
+var change_FOV : bool = true
+var shaders_enabled : bool = true

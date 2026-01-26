@@ -34,6 +34,12 @@ var can_trait : bool = true
 var grapple_stam : float = 100
 var can_regen_stam : bool = true
 var hand_y_jiggle : float = 0.0
+var attack_type : weapon_attack_types = weapon_attack_types.ON_CLICK
+
+enum weapon_attack_types {
+	ON_CLICK,
+	HOLD
+}
 
 @onready var head = $head
 @onready var cam = $head/Camera3D
@@ -65,6 +71,7 @@ var hand_y_jiggle : float = 0.0
 @onready var grapple_stamina_bar: ProgressBar = $head/Camera3D/UI/GrappleStaminaBar
 @onready var round_timer: RichTextLabel = $head/Camera3D/UI/RoundTimer
 @onready var fp_hand: Marker3D = $"head/FP Hand"
+@onready var shaders: CanvasLayer = $head/Camera3D/Shaders
 
 ## sounds cuz >:3 ##
 @onready var hit_sfx: AudioStreamPlayer3D = $SoundFX/hit_sfx
@@ -98,6 +105,9 @@ func _ready():
 		grapple_cast.add_exception(self)
 		Global.LocalPlayerId = self.name.to_int()
 		hand.switch_weapon(0)
+		
+		## apply settings ##
+		shaders.visible = Global.shaders_enabled
 
 func _input(event):
 	## mouse stuff ##
@@ -113,6 +123,15 @@ func _input(event):
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
+		
+		if Global.disable_cooldowns == true:
+			can_ability = true
+			can_attack = true
+			can_dash = true
+			can_regen_stam = true
+			can_trait = true
+		
+		
 		
 		score_label.text = "Score: " + str(score)
 		
@@ -221,7 +240,8 @@ func _physics_process(delta):
 			velocity.x = lerp(velocity.x, direction.x * speed * 1.25, friction)
 			velocity.z = lerp(velocity.z, direction.z * speed * 1.25, friction)
 		
-		cam.fov = lerp(cam.fov, Global.default_FOV + (speed-6), friction)
+		if Global.change_FOV == true:
+			cam.fov = lerp(cam.fov, Global.default_FOV + (speed-6), friction)
 		hand_y_jiggle = lerp(hand_y_jiggle, -velocity.y/16, 0.05)
 		hand_y_jiggle = clamp(hand_y_jiggle, -0.5, 0.5)
 		firstperson_models.position.y = lerp(firstperson_models.position.y, hand_y_jiggle, 0.1)
@@ -241,22 +261,24 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("quit"):
 			$"../".exit_game(name.to_int())
 			get_tree().quit()
+		##-- END OF key things --##
 		
+		## attack logic :D ##
 		if Input.is_action_just_pressed("Hit") and can_attack and !is_parying:
 			#AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), 1)
 			
 			hit()
 			firstperson_models.get_weapon(hand.current_weapon).play_anim(0)
-		##-- END OF key things --##
+		
 		
 		
 		if hand.current_weapon != 0:
-			var held_weapon = hand.weapons[hand.current_weapon]
+			var held_weapon = firstperson_models.get_weapon(hand.current_weapon).stats
 			
-			if !is_on_floor() and velocity.y < 0 and held_weapon == "Sword":
-				attack_damage = hand.weapon_stats_old[held_weapon]["Damage"] * -velocity.y / 2
+			if !is_on_floor() and velocity.y < 0 and held_weapon.can_crit == true:
+				attack_damage = held_weapon.damage * -velocity.y / 4
 			else:
-				attack_damage = hand.weapon_stats_old[held_weapon]["Damage"]
+				attack_damage = held_weapon.damage
 		
 		
 		if Input.is_action_just_pressed("Traits") and can_trait:
@@ -311,7 +333,8 @@ func dash(dash_speed : int, additive = true):
 	else:
 		velocity += dash_velocity
 	
-	cam.fov += float(dash_speed)/4
+	if Global.change_FOV == true:
+		cam.fov += float(dash_speed)/4
 	dash_timer.paused = false
 	is_dashing = true
 	can_dash = false

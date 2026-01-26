@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="weapon_stats" load_steps=2 format=3 uid="uid://drgk3bf4tefqd"]
+[gd_resource type="Resource" script_class="weapon_stats" load_steps=3 format=3 uid="uid://drgk3bf4tefqd"]
 
 [ext_resource type="Script" uid="uid://ddx6mqhs6571w" path="res://resources/weapon_stats_res.gd" id="1_5jcpn"]
+[ext_resource type="PackedScene" uid="uid://bprcsfa18a1nm" path="res://scenes/arrow.tscn" id="1_xai75"]
 
 [resource]
 script = ExtResource("1_5jcpn")
@@ -15,4 +16,6 @@ animation_names = Dictionary[int, String]({
 3: "DrawBack3"
 })
 type = 1
+charge_length = 0.5
+projectile = ExtResource("1_xai75")
 metadata/_custom_type_script = "uid://ddx6mqhs6571w"

@@ -13,4 +13,5 @@ animation_names = Dictionary[int, String]({
 0: "swingy thing",
 1: "lunge"
 })
+can_crit = true
 metadata/_custom_type_script = "uid://ddx6mqhs6571w"

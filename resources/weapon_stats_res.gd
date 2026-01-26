@@ -15,6 +15,8 @@ class_name weapon_stats
 @export var animation_names : Dictionary[int, String]
 @export_group("Weapon Behaviors")
 @export var type: WeaponType
+@export var can_crit: bool
+@export var charge_length: float
 @export_subgroup("Ranged Settings")
 @export var projectile: PackedScene
 
