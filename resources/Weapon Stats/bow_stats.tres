@@ -5,8 +5,12 @@
 [resource]
 script = ExtResource("1_5jcpn")
 id = 3
+damage = 50.0
+attack_speed = 0.1
+attack_range = 50.0
 animation_names = Dictionary[int, String]({
 0: "DrawBack",
+1: "DrawBack3",
 2: "DrawBack2",
 3: "DrawBack3"
 })

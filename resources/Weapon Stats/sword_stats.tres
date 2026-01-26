@@ -6,4 +6,11 @@
 script = ExtResource("1_x33yw")
 id = 1
 damage = 15.0
+attack_speed = 0.75
+attack_range = 2.25
+hitbox_size = 1.0
+animation_names = Dictionary[int, String]({
+0: "swingy thing",
+1: "lunge"
+})
 metadata/_custom_type_script = "uid://ddx6mqhs6571w"
