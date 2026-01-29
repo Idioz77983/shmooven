@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://hvtxo3crwfxh"]
+[gd_scene format=3 uid="uid://hvtxo3crwfxh"]
 
 [ext_resource type="Script" uid="uid://boee4cdtnk6ht" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bagbmqyntfyo4" path="res://assets/crosshair.png" id="2_d2wvv"]
@@ -266,7 +266,7 @@ properties/14/path = NodePath("head/GrappleLineFPM Marker/LineRenderer3D:visible
 properties/14/spawn = true
 properties/14/replication_mode = 1
 
-[node name="PlayerRoot" type="CharacterBody3D"]
+[node name="PlayerRoot" type="CharacterBody3D" unique_id=805449443]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 collision_layer = 3
 floor_stop_on_slope = false
@@ -274,18 +274,18 @@ floor_constant_speed = true
 floor_snap_length = 0.2
 script = ExtResource("1_3vyb7")
 
-[node name="CollisionBox" type="CollisionShape3D" parent="."]
+[node name="CollisionBox" type="CollisionShape3D" parent="." unique_id=112778368]
 shape = SubResource("BoxShape3D_g2els")
 
-[node name="head" type="Marker3D" parent="."]
+[node name="head" type="Marker3D" parent="." unique_id=1351573837]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0.4, 0)
 
-[node name="Camera3D" type="Camera3D" parent="head"]
+[node name="Camera3D" type="Camera3D" parent="head" unique_id=666415896]
 fov = 90.0
 
-[node name="UI" type="CanvasLayer" parent="head/Camera3D"]
+[node name="UI" type="CanvasLayer" parent="head/Camera3D" unique_id=1976975728]
 
-[node name="MarginContainer" type="MarginContainer" parent="head/Camera3D/UI"]
+[node name="MarginContainer" type="MarginContainer" parent="head/Camera3D/UI" unique_id=556011299]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -297,7 +297,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HealthBar" type="ProgressBar" parent="head/Camera3D/UI/MarginContainer"]
+[node name="HealthBar" type="ProgressBar" parent="head/Camera3D/UI/MarginContainer" unique_id=1893415189]
 custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -309,7 +309,7 @@ value = 100.0
 allow_lesser = true
 show_percentage = false
 
-[node name="OverhealthBar" type="ProgressBar" parent="head/Camera3D/UI/MarginContainer"]
+[node name="OverhealthBar" type="ProgressBar" parent="head/Camera3D/UI/MarginContainer" unique_id=1934042594]
 custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -321,14 +321,14 @@ step = 0.1
 allow_lesser = true
 show_percentage = false
 
-[node name="Score" type="Label" parent="head/Camera3D/UI/MarginContainer"]
+[node name="Score" type="Label" parent="head/Camera3D/UI/MarginContainer" unique_id=1741632400]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Score: "
 
-[node name="TextureRect" type="TextureRect" parent="head/Camera3D/UI"]
+[node name="TextureRect" type="TextureRect" parent="head/Camera3D/UI" unique_id=1798296722]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -343,7 +343,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_d2wvv")
 
-[node name="CanAttack" type="TextureRect" parent="head/Camera3D/UI"]
+[node name="CanAttack" type="TextureRect" parent="head/Camera3D/UI" unique_id=1318274380]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -358,7 +358,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_qfm1y")
 
-[node name="AbilityAvailable" type="TextureRect" parent="head/Camera3D/UI"]
+[node name="AbilityAvailable" type="TextureRect" parent="head/Camera3D/UI" unique_id=1918470322]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -370,7 +370,7 @@ grow_vertical = 0
 mouse_filter = 2
 texture = ExtResource("3_a8ls1")
 
-[node name="TraitAvailable" type="TextureRect" parent="head/Camera3D/UI"]
+[node name="TraitAvailable" type="TextureRect" parent="head/Camera3D/UI" unique_id=1998216104]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -382,7 +382,7 @@ grow_vertical = 0
 mouse_filter = 2
 texture = ExtResource("5_a38lo")
 
-[node name="ParrySheild" type="TextureRect" parent="head/Camera3D/UI"]
+[node name="ParrySheild" type="TextureRect" parent="head/Camera3D/UI" unique_id=805816392]
 modulate = Color(1, 1, 1, 0.39215687)
 anchors_preset = 8
 anchor_left = 0.5
@@ -397,7 +397,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_4ni07")
 
-[node name="GrappleStaminaBar" type="ProgressBar" parent="head/Camera3D/UI"]
+[node name="GrappleStaminaBar" type="ProgressBar" parent="head/Camera3D/UI" unique_id=194390579]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -414,7 +414,7 @@ step = 0.25
 fill_mode = 3
 show_percentage = false
 
-[node name="Panel" type="Panel" parent="head/Camera3D/UI"]
+[node name="Panel" type="Panel" parent="head/Camera3D/UI" unique_id=882649168]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -424,7 +424,7 @@ offset_right = 93.0
 offset_bottom = 78.0
 grow_horizontal = 2
 
-[node name="RoundTimer" type="RichTextLabel" parent="head/Camera3D/UI"]
+[node name="RoundTimer" type="RichTextLabel" parent="head/Camera3D/UI" unique_id=1580691765]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -439,10 +439,10 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Shaders" type="CanvasLayer" parent="head/Camera3D"]
+[node name="Shaders" type="CanvasLayer" parent="head/Camera3D" unique_id=2106582774]
 layer = -1
 
-[node name="Pixelate" type="ColorRect" parent="head/Camera3D/Shaders"]
+[node name="Pixelate" type="ColorRect" parent="head/Camera3D/Shaders" unique_id=1295731708]
 z_index = 1
 material = SubResource("ShaderMaterial_ke2ow")
 anchors_preset = 15
@@ -451,7 +451,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VHS" type="ColorRect" parent="head/Camera3D/Shaders"]
+[node name="VHS" type="ColorRect" parent="head/Camera3D/Shaders" unique_id=1825105357]
 visible = false
 material = SubResource("ShaderMaterial_ujl30")
 anchors_preset = 15
@@ -460,7 +460,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="chroma aberant" type="ColorRect" parent="head/Camera3D/Shaders"]
+[node name="chroma aberant" type="ColorRect" parent="head/Camera3D/Shaders" unique_id=1600152816]
 visible = false
 material = SubResource("ShaderMaterial_31cv2")
 anchors_preset = 15
@@ -469,44 +469,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FP Hand" type="Marker3D" parent="head"]
+[node name="FP Hand" type="Marker3D" parent="head" unique_id=837255161]
 transform = Transform3D(-0.006445465, 0.0011365095, 0.7499715, 0.13023612, 0.7386058, 0, -0.7385776, 0.13023117, -0.006544898, 1, -1.03, -1.025)
 
-[node name="FirstpersonModels" type="Marker3D" parent="head/FP Hand"]
+[node name="FirstpersonModels" type="Marker3D" parent="head/FP Hand" unique_id=1738320520]
 script = ExtResource("2_smehm")
 
-[node name="ScytheFPM" parent="head/FP Hand/FirstpersonModels" instance=ExtResource("3_y4r1p")]
+[node name="ScytheFPM" parent="head/FP Hand/FirstpersonModels" unique_id=1732291974 instance=ExtResource("3_y4r1p")]
 
-[node name="SwordFPM" parent="head/FP Hand/FirstpersonModels" instance=ExtResource("4_d2wvv")]
+[node name="SwordFPM" parent="head/FP Hand/FirstpersonModels" unique_id=1420564804 instance=ExtResource("4_d2wvv")]
 visible = false
 
-[node name="BowFPM" parent="head/FP Hand/FirstpersonModels" instance=ExtResource("8_i4ail")]
+[node name="BowFPM" parent="head/FP Hand/FirstpersonModels" unique_id=1620254349 instance=ExtResource("8_i4ail")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 
-[node name="FPM Anims" type="AnimationPlayer" parent="head"]
+[node name="FPM Anims" type="AnimationPlayer" parent="head" unique_id=910912692]
 root_node = NodePath("../FP Hand/FirstpersonModels")
-libraries = {
-&"": SubResource("AnimationLibrary_jej6c")
-}
-autoplay = "RESET"
+libraries/ = SubResource("AnimationLibrary_jej6c")
+autoplay = &"RESET"
 
-[node name="HitBar" type="ShapeCast3D" parent="head"]
+[node name="HitBar" type="ShapeCast3D" parent="head" unique_id=370710106]
 shape = SubResource("BoxShape3D_d2wvv")
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 2
 collide_with_areas = true
 debug_shape_custom_color = Color(0, 0.62873185, 0.35121158, 1)
 
-[node name="GrappleCast" type="ShapeCast3D" parent="head"]
+[node name="GrappleCast" type="ShapeCast3D" parent="head" unique_id=1992398277]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 shape = SubResource("SphereShape3D_fulsm")
 target_position = Vector3(0, 0, -30)
 
-[node name="GrappleLineFPM Marker" type="Marker3D" parent="head"]
+[node name="GrappleLineFPM Marker" type="Marker3D" parent="head" unique_id=1886076051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.03, -1.025)
 
-[node name="LineRenderer3D" type="MeshInstance3D" parent="head/GrappleLineFPM Marker"]
+[node name="LineRenderer3D" type="MeshInstance3D" parent="head/GrappleLineFPM Marker" unique_id=1695403821]
 transform = Transform3D(-0.006445462, 0.001136509, 0.7499715, 0.13023607, 0.73860544, 3.1679978e-10, -0.7385772, 0.13023114, -0.0065448973, 2, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_60mlk")
@@ -515,52 +513,59 @@ skeleton = NodePath("../../FP Hand/FirstpersonModels")
 script = ExtResource("9_4r5pv")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 1, 0)])
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.757, 0)
+[node name="Ye Old Proto Model" type="Node3D" parent="." unique_id=1756918340]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ye Old Proto Model" unique_id=754464476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.042999983, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_3vyb7")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.2)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Ye Old Proto Model" unique_id=1295492555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4000001, -0.2)
 visible = false
 mesh = SubResource("BoxMesh_g2els")
+skeleton = NodePath("../..")
 
-[node name="DashDirection" type="Marker3D" parent="."]
+[node name="DashDirection" type="Marker3D" parent="." unique_id=777738314]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=907244955]
 replication_config = SubResource("SceneReplicationConfig_3vyb7")
 
-[node name="Timers" type="Node" parent="."]
+[node name="Timers" type="Node" parent="." unique_id=1667667830]
 
-[node name="DashAnimTimer" type="Timer" parent="Timers"]
+[node name="DashAnimTimer" type="Timer" parent="Timers" unique_id=1973265336]
 wait_time = 1.5
 one_shot = true
 
-[node name="AttackLength" type="Timer" parent="Timers"]
+[node name="AttackLength" type="Timer" parent="Timers" unique_id=13304653]
 wait_time = 0.1
 one_shot = true
 
-[node name="AttackCooldown" type="Timer" parent="Timers"]
+[node name="AttackCooldown" type="Timer" parent="Timers" unique_id=994196801]
 one_shot = true
 
-[node name="RespawnTimer" type="Timer" parent="Timers"]
+[node name="RespawnTimer" type="Timer" parent="Timers" unique_id=124289509]
 wait_time = 2.0
 one_shot = true
 
-[node name="WaveDashTimer" type="Timer" parent="Timers"]
+[node name="WaveDashTimer" type="Timer" parent="Timers" unique_id=977509787]
 wait_time = 0.1
 one_shot = true
 
-[node name="AbilityCooldown" type="Timer" parent="Timers"]
+[node name="AbilityCooldown" type="Timer" parent="Timers" unique_id=1012659961]
 wait_time = 7.5
 
-[node name="ParryTimer" type="Timer" parent="Timers"]
+[node name="ParryTimer" type="Timer" parent="Timers" unique_id=1387168740]
 wait_time = 10.0
 one_shot = true
 
-[node name="TraitCooldown" type="Timer" parent="Timers"]
+[node name="TraitCooldown" type="Timer" parent="Timers" unique_id=1314101718]
 
-[node name="TempPlayerModel" parent="." instance=ExtResource("2_g2els")]
+[node name="RangedWeaponCharge" type="Timer" parent="Timers" unique_id=1836415615]
+one_shot = true
+
+[node name="TempPlayerModel" parent="." unique_id=1378395463 instance=ExtResource("2_g2els")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.757, 0)
 
 [node name="LeftArm" parent="TempPlayerModel/Blobert/UpperBody" index="0"]
@@ -569,44 +574,44 @@ transform = Transform3D(0.93969256, 0.34202015, 0, -0.34202012, 0.9396926, 0, 0,
 [node name="RightArm" parent="TempPlayerModel/Blobert/UpperBody" index="1"]
 transform = Transform3D(0.93969214, -0.3420201, 0, 0.34201995, 0.93969256, 0, 0, 0, 1, 0.3, 1.891, 0.063)
 
-[node name="GripSpot" type="Marker3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm" index="4"]
+[node name="GripSpot" type="Marker3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm" index="4" unique_id=290262803]
 transform = Transform3D(0.99999994, -8.1247425e-11, 1.7729151e-12, 0, 1, 0, 0, 0, 0.99999994, 0.099999994, -1.0999999, 7.450581e-09)
 script = ExtResource("3_qlg0r")
 
-[node name="Weapons" type="Node3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot"]
+[node name="Weapons" type="Node3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot" unique_id=78575359]
 transform = Transform3D(1, 0, -1.7729154e-12, 2.9802322e-08, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Sword" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" instance=ExtResource("3_qhqgy")]
+[node name="Sword" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" unique_id=953422692 instance=ExtResource("3_qhqgy")]
 transform = Transform3D(2.9802322e-08, -6.556708e-08, 1.5000001, -1.5000001, -6.556708e-08, -5.9604645e-08, 6.556708e-08, -1.5, -6.556708e-08, 0, 0, 0)
 visible = false
 
-[node name="Scythe" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" instance=ExtResource("4_dqkch")]
+[node name="Scythe" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" unique_id=2114641512 instance=ExtResource("4_dqkch")]
 transform = Transform3D(-4.675154e-20, -5.9604645e-08, 1.5000001, -1.4488889, 0.38822865, -5.9604645e-08, -0.38822865, -1.4488889, -6.556708e-08, 0, 0, 0)
 visible = false
 
-[node name="Bow" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" instance=ExtResource("16_60mlk")]
+[node name="Bow" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" unique_id=1140328782 instance=ExtResource("16_60mlk")]
 transform = Transform3D(0, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.3711385e-08, 0, 0, 0)
 visible = false
 
-[node name="Nametag" type="Label3D" parent="."]
+[node name="Nametag" type="Label3D" parent="." unique_id=480753832]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 billboard = 1
 outline_modulate = Color(0.39181867, 0.39181864, 0.39181864, 1)
 text = "Mr. No Name :P"
 font = ExtResource("6_tuyoq")
 
-[node name="SoundFX" type="Node3D" parent="."]
+[node name="SoundFX" type="Node3D" parent="." unique_id=405094328]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="hit_sfx" type="AudioStreamPlayer3D" parent="SoundFX"]
+[node name="hit_sfx" type="AudioStreamPlayer3D" parent="SoundFX" unique_id=1109257180]
 stream = ExtResource("12_jej6c")
 bus = &"SFX"
 
-[node name="death_sfx" type="AudioStreamPlayer3D" parent="SoundFX"]
+[node name="death_sfx" type="AudioStreamPlayer3D" parent="SoundFX" unique_id=1639789616]
 stream = ExtResource("13_f1ej7")
 bus = &"SFX"
 
-[node name="parry_sfx" type="AudioStreamPlayer3D" parent="SoundFX"]
+[node name="parry_sfx" type="AudioStreamPlayer3D" parent="SoundFX" unique_id=219348403]
 stream = ExtResource("26_ujl30")
 
 [connection signal="animation_finished" from="head/FPM Anims" to="." method="_on_fpm_anims_animation_finished"]
@@ -618,6 +623,7 @@ stream = ExtResource("26_ujl30")
 [connection signal="timeout" from="Timers/AbilityCooldown" to="." method="_on_ability_cooldown_timeout"]
 [connection signal="timeout" from="Timers/ParryTimer" to="." method="_on_parry_timer_timeout"]
 [connection signal="timeout" from="Timers/TraitCooldown" to="." method="_on_trait_cooldown_timeout"]
+[connection signal="timeout" from="Timers/RangedWeaponCharge" to="." method="_on_ranged_weapon_charge_timeout"]
 [connection signal="animation_finished" from="TempPlayerModel/ArmAnimator" to="." method="_on_arm_animator_animation_finished"]
 
 [editable path="TempPlayerModel"]

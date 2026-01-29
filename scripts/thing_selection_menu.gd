@@ -1,7 +1,7 @@
 extends ScrollContainer
 
 var is_trait_equipped : bool = false
-var max_inventory = 2
+var max_inventory = 99
 
 func add_thing(thing_name : String, are_you_trait : bool):
 	if !Global.equiped_things.has(thing_name):

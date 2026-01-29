@@ -8,7 +8,7 @@ class_name weapon_stats
 @export var attack_speed : float
 @export var attack_range : float
 @export var hitbox_size : float
-@export var grav_multi : float
+@export var grav_multi : float = 1
 @export var slowness : float
 @export_group("Animations")
 @export var animation_player_name : String = "AnimationPlayer" 
@@ -18,6 +18,7 @@ class_name weapon_stats
 @export var can_crit: bool
 @export var charge_length: float
 @export_subgroup("Ranged Settings")
+@export var is_chargable_weapon: bool
 @export var projectile: PackedScene
 
 enum WeaponType {

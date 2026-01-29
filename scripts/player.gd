@@ -12,6 +12,8 @@ var dash_power = 17.5
 var is_dashing = false
 var can_ability = true
 
+var held_weapon : Node
+
 var can_dash = true
 var available_dashes = 1
 var max_dashes = 1
@@ -35,6 +37,12 @@ var grapple_stam : float = 100
 var can_regen_stam : bool = true
 var hand_y_jiggle : float = 0.0
 var attack_type : weapon_attack_types = weapon_attack_types.ON_CLICK
+
+## ranged weapon vars ##
+var can_charge_shot : bool = true
+var max_shot_charges : int = 3
+var shot_charge_ammount : int = 0
+var chargetime_length : float = 0.5
 
 enum weapon_attack_types {
 	ON_CLICK,
@@ -72,6 +80,9 @@ enum weapon_attack_types {
 @onready var round_timer: RichTextLabel = $head/Camera3D/UI/RoundTimer
 @onready var fp_hand: Marker3D = $"head/FP Hand"
 @onready var shaders: CanvasLayer = $head/Camera3D/Shaders
+
+@onready var ranged_weapon_charge: Timer = $Timers/RangedWeaponCharge
+
 
 ## sounds cuz >:3 ##
 @onready var hit_sfx: AudioStreamPlayer3D = $SoundFX/hit_sfx
@@ -264,21 +275,32 @@ func _physics_process(delta):
 		##-- END OF key things --##
 		
 		## attack logic :D ##
-		if Input.is_action_just_pressed("Hit") and can_attack and !is_parying:
-			#AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), 1)
-			
-			hit()
-			firstperson_models.get_weapon(hand.current_weapon).play_anim(0)
+		match attack_type:
+			weapon_attack_types.ON_CLICK:
+				if Input.is_action_just_pressed("Hit") and can_attack and !is_parying:
+					hit()
+					if hand.current_weapon != 0:
+						firstperson_models.get_weapon(hand.current_weapon).play_anim(0)
+			weapon_attack_types.HOLD:
+				if Input.is_action_pressed("Hit") and can_attack and !is_parying and can_charge_shot:
+					if shot_charge_ammount < max_shot_charges:
+						ranged_weapon_charge.start(chargetime_length)
+						can_charge_shot = false
+				elif Input.is_action_just_released("Hit"):
+					print("this should shoot an arrow that has a charge of " + str(shot_charge_ammount))
+					
+					## put the arrow stuff above here ##
+					shot_charge_ammount = 0
 		
 		
 		
 		if hand.current_weapon != 0:
-			var held_weapon = firstperson_models.get_weapon(hand.current_weapon).stats
+			var held_weapon_stats = firstperson_models.get_weapon(hand.current_weapon).stats
 			
-			if !is_on_floor() and velocity.y < 0 and held_weapon.can_crit == true:
-				attack_damage = held_weapon.damage * -velocity.y / 4
+			if !is_on_floor() and velocity.y < 0 and held_weapon_stats.can_crit == true:
+				attack_damage = held_weapon_stats.damage * -velocity.y / 4
 			else:
-				attack_damage = held_weapon.damage
+				attack_damage = held_weapon_stats.damage
 		
 		
 		if Input.is_action_just_pressed("Traits") and can_trait:
@@ -405,15 +427,24 @@ func _on_attack_length_timeout():
 	hit_connected = false
 
 func load_weapon_stats_old(WeaponId):
-	if hand.current_weapon != 0:
-		hit_bar.target_position = Vector3(0, 0, -hand.weapon_stats_old[hand.weapons[WeaponId]]["Range"])
-		attack_damage = hand.weapon_stats_old[hand.weapons[WeaponId]]["Damage"]
-		attack_speed = hand.weapon_stats_old[hand.weapons[WeaponId]]["AttSpeed"]
-		hit_bar.shape.size.x = hand.weapon_stats_old[hand.weapons[WeaponId]]["HitboxSize"]
-		hit_bar.shape.size.y = hand.weapon_stats_old[hand.weapons[WeaponId]]["HitboxSize"]
-		grav_multi = hand.weapon_stats_old[hand.weapons[WeaponId]]["GravMulti"]
-		slowness = hand.weapon_stats_old[hand.weapons[WeaponId]]["Slowness"]
-	elif hand.current_weapon == 0:
+	if WeaponId != 0:
+		held_weapon = firstperson_models.get_weapon(hand.current_weapon)
+		var held_weapon_stats = firstperson_models.get_weapon(hand.current_weapon).stats
+		
+		
+		hit_bar.target_position = Vector3(0, 0, -held_weapon_stats.attack_range)
+		attack_damage = held_weapon_stats.damage
+		attack_speed = held_weapon_stats.attack_speed
+		hit_bar.shape.size.x = held_weapon_stats.hitbox_size
+		hit_bar.shape.size.y = held_weapon_stats.hitbox_size
+		grav_multi = held_weapon_stats.grav_multi
+		slowness = held_weapon_stats.slowness
+		match held_weapon_stats.type:
+			0:
+				attack_type = weapon_attack_types.ON_CLICK
+			1:
+				attack_type = weapon_attack_types.HOLD
+	elif WeaponId == 0:
 		hit_bar.target_position = Vector3(0, 0, 0)
 		attack_damage = 0
 		attack_speed = 0
@@ -430,22 +461,18 @@ func load_weapon_stats_old(WeaponId):
 func _on_attack_cooldown_timeout():
 	can_attack = true
 
-
 func _on_respawn_timer_timeout():
 	position = Vector3(0, 2, 0)
 	health = 100
 	is_dead = false
 
-
 func _on_wave_dash_timer_timeout():
 	can_wavedash = false
 	#is_dashing = false
 
-
 func _on_fpm_anims_animation_finished(anim_name):
 	if anim_name == "hit":
 		fpm_anims.play("RESET")
-
 
 func _on_ability_cooldown_timeout():
 	can_ability = true
@@ -465,10 +492,12 @@ func reset_position(going_to_round):
 func add_point(Amount):
 	score += Amount
 
-
 func _on_parry_timer_timeout():
 	is_parying = false
 
-
 func _on_trait_cooldown_timeout():
 	can_trait = true
+
+func _on_ranged_weapon_charge_timeout() -> void:
+	can_charge_shot = true
+	shot_charge_ammount += 1

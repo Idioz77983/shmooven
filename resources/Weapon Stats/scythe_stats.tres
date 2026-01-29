@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="weapon_stats" load_steps=2 format=3 uid="uid://coijebkjouc7m"]
+[gd_resource type="Resource" script_class="weapon_stats" format=3 uid="uid://coijebkjouc7m"]
 
 [ext_resource type="Script" uid="uid://ddx6mqhs6571w" path="res://resources/weapon_stats_res.gd" id="1_5xhgo"]
 
@@ -9,7 +9,7 @@ damage = 25.0
 attack_speed = 1.5
 attack_range = 3.0
 hitbox_size = 1.5
-grav_multi = 1.25
+grav_multi = 1.2
 slowness = 4.0
 animation_names = Dictionary[int, String]({
 0: "Slash",
