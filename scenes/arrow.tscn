@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=4 uid="uid://bprcsfa18a1nm"]
+[gd_scene format=4 uid="uid://bprcsfa18a1nm"]
 
+[ext_resource type="Script" uid="uid://cmdjo5yvoj04j" path="res://scripts/arrow.gd" id="1_23jat"]
 [ext_resource type="Texture2D" uid="uid://yy2mv64fmli" path="res://assets/Models/bow_1.png" id="1_umosx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_twfex"]
@@ -108,19 +109,25 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vst3l")
 
-[node name="Arrow" type="Node3D"]
+[node name="Arrow" type="Node3D" unique_id=615919413]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+script = ExtResource("1_23jat")
 
-[node name="cuboid" type="MeshInstance3D" parent="."]
+[node name="cuboid" type="MeshInstance3D" parent="." unique_id=240747346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.125, -0.25, 0)
 mesh = SubResource("ArrayMesh_23jat")
 skeleton = NodePath("")
 
-[node name="cuboid2" type="MeshInstance3D" parent="."]
+[node name="cuboid2" type="MeshInstance3D" parent="." unique_id=2020514697]
 transform = Transform3D(0.7071067, -0.7071068, 0, 0.7071068, 0.7071067, 0, 0, 0, 1, 0.5625, 0, 0)
 mesh = SubResource("ArrayMesh_q8ifc")
 skeleton = NodePath("")
 
-[node name="cuboid3" type="MeshInstance3D" parent="."]
+[node name="cuboid3" type="MeshInstance3D" parent="." unique_id=355461351]
 transform = Transform3D(1.0606601, -1.0606602, 0, 1.0606602, 1.0606601, 0, 0, 0, 1.5, -1, 0, 0)
 mesh = SubResource("ArrayMesh_7ckq1")
 skeleton = NodePath("")
+
+[node name="Timer" type="Timer" parent="." unique_id=1658348286]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

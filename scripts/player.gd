@@ -43,6 +43,7 @@ var can_charge_shot : bool = true
 var max_shot_charges : int = 3
 var shot_charge_ammount : int = 0
 var chargetime_length : float = 0.5
+var ranged_projectile_scene : PackedScene
 
 enum weapon_attack_types {
 	ON_CLICK,
@@ -284,10 +285,24 @@ func _physics_process(delta):
 			weapon_attack_types.HOLD:
 				if Input.is_action_pressed("Hit") and can_attack and !is_parying and can_charge_shot:
 					if shot_charge_ammount < max_shot_charges:
+						if shot_charge_ammount < 1:
+							held_weapon.play_anim(0)
+						else:
+							held_weapon.play_anim(shot_charge_ammount + 1)
 						ranged_weapon_charge.start(chargetime_length)
 						can_charge_shot = false
 				elif Input.is_action_just_released("Hit"):
-					print("this should shoot an arrow that has a charge of " + str(shot_charge_ammount))
+					#print("this should shoot an arrow that has a charge of " + str(shot_charge_ammount))
+					held_weapon.play_anim(held_weapon.stats.animation_names.size() - 1)
+					
+					if shot_charge_ammount != 0:
+						var projectile = ranged_projectile_scene.instantiate()
+						
+						projectile.position = cam.global_position
+						projectile.rotation = Vector3(0, rotation.y + deg_to_rad(90), head.rotation.x)
+						projectile.charge_count = shot_charge_ammount
+						
+						$"../".add_child(projectile)
 					
 					## put the arrow stuff above here ##
 					shot_charge_ammount = 0
@@ -444,6 +459,7 @@ func load_weapon_stats_old(WeaponId):
 				attack_type = weapon_attack_types.ON_CLICK
 			1:
 				attack_type = weapon_attack_types.HOLD
+				ranged_projectile_scene = held_weapon_stats.projectile
 	elif WeaponId == 0:
 		hit_bar.target_position = Vector3(0, 0, 0)
 		attack_damage = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxdjs3yheus65"]
+[gd_scene format=3 uid="uid://dxdjs3yheus65"]
 
 [ext_resource type="Script" uid="uid://cac3yu1n3odtl" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://hvtxo3crwfxh" path="res://scenes/player.tscn" id="2_sugp2"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tbgi4"]
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=282728175]
 script = ExtResource("1_sugp2")
 player_scene = ExtResource("2_sugp2")
 Maps = Dictionary[int, PackedScene]({
@@ -20,13 +20,13 @@ Maps = Dictionary[int, PackedScene]({
 2: ExtResource("5_tipki")
 })
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2063551728]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1470944432]
 
-[node name="Host" type="Button" parent="CanvasLayer"]
+[node name="Host" type="Button" parent="CanvasLayer" unique_id=1216996914]
 offset_left = 15.0
 offset_top = 13.0
 offset_right = 248.0
@@ -34,7 +34,7 @@ offset_bottom = 126.0
 mouse_filter = 1
 text = "Host"
 
-[node name="Join" type="Button" parent="CanvasLayer"]
+[node name="Join" type="Button" parent="CanvasLayer" unique_id=240686227]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -48,7 +48,7 @@ size_flags_vertical = 8
 mouse_filter = 1
 text = "Join"
 
-[node name="joinPort" type="LineEdit" parent="CanvasLayer"]
+[node name="joinPort" type="LineEdit" parent="CanvasLayer" unique_id=973631783]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -60,7 +60,7 @@ grow_vertical = 0
 mouse_filter = 1
 placeholder_text = "Insert the host's Port here,"
 
-[node name="joinIp" type="LineEdit" parent="CanvasLayer"]
+[node name="joinIp" type="LineEdit" parent="CanvasLayer" unique_id=499912358]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -72,7 +72,7 @@ grow_vertical = 0
 mouse_filter = 1
 placeholder_text = "and insert the IP here, then join!"
 
-[node name="HostPort" type="LineEdit" parent="CanvasLayer"]
+[node name="HostPort" type="LineEdit" parent="CanvasLayer" unique_id=1473695101]
 anchors_preset = -1
 anchor_right = 0.11805555
 offset_left = 261.0
@@ -83,7 +83,7 @@ mouse_filter = 1
 placeholder_text = "Port to host on (defaults to 1027)"
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=244608904]
 custom_minimum_size = Vector2(700, 250)
 anchors_preset = 6
 anchor_left = 1.0
@@ -102,11 +102,11 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer" unique_id=489701799]
 layout_mode = 2
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=1592157610]
 layout_direction = 2
 layout_mode = 2
 mouse_filter = 1
@@ -119,13 +119,13 @@ autowrap_mode = 0
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="PlayerName" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="PlayerName" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=1190639562]
 layout_mode = 2
 mouse_filter = 1
 placeholder_text = "Put ur username here >:3"
 alignment = 1
 
-[node name="Label2" type="Label" parent="CanvasLayer"]
+[node name="Label2" type="Label" parent="CanvasLayer" unique_id=2002197053]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -139,7 +139,7 @@ theme_override_font_sizes/font_size = 16
 text = "- leaving them blank will let you join yourself
 (without port forwarding)"
 
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1915175011]
 offset_left = 20.0
 offset_top = 130.0
 offset_right = 298.0
@@ -148,7 +148,7 @@ mouse_filter = 1
 theme_override_font_sizes/font_size = 16
 text = "- Port Forwarding Required :("
 
-[node name="Controls" type="MarginContainer" parent="CanvasLayer"]
+[node name="Controls" type="MarginContainer" parent="CanvasLayer" unique_id=614040903]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -161,7 +161,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Label3" type="Label" parent="CanvasLayer/Controls"]
+[node name="Label3" type="Label" parent="CanvasLayer/Controls" unique_id=920364797]
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 20
@@ -171,7 +171,7 @@ lmb - ability
 rmb - attack
 shift - dash"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=268823949]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -191,7 +191,7 @@ text = "[tornado]-- Update Log -- [/tornado]
  - Fixed a grapple bug where you could regen your stamina in the air
  - Fixed joining into the wrong map, like loading into the lobby during a round"
 
-[node name="ThingSelection" type="ScrollContainer" parent="CanvasLayer"]
+[node name="ThingSelection" type="ScrollContainer" parent="CanvasLayer" unique_id=1311833424]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -208,21 +208,21 @@ size_flags_vertical = 8
 horizontal_scroll_mode = 0
 script = ExtResource("5_o6xl0")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ThingSelection"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ThingSelection" unique_id=732509349]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Weapons" type="VBoxContainer" parent="CanvasLayer/ThingSelection/VBoxContainer"]
+[node name="Weapons" type="VBoxContainer" parent="CanvasLayer/ThingSelection/VBoxContainer" unique_id=1241867268]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons"]
+[node name="Label" type="Label" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons" unique_id=1617645385]
 layout_mode = 2
 text = "-- Weapons --"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons" unique_id=2008989540]
 custom_minimum_size = Vector2(50, 50)
 layout_direction = 2
 layout_mode = 2
@@ -230,7 +230,7 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 4
 
-[node name="sword" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons/GridContainer"]
+[node name="sword" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons/GridContainer" unique_id=1215470061]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 toggle_mode = true
@@ -238,7 +238,7 @@ text = "Sword"
 script = ExtResource("6_tipki")
 thing = "Sword"
 
-[node name="scyhe" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons/GridContainer"]
+[node name="scyhe" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons/GridContainer" unique_id=630822350]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 toggle_mode = true
@@ -246,7 +246,7 @@ text = "Scythe"
 script = ExtResource("6_tipki")
 thing = "Scythe"
 
-[node name="bowmb" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons/GridContainer"]
+[node name="bowmb" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Weapons/GridContainer" unique_id=731368236]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 toggle_mode = true
@@ -254,15 +254,15 @@ text = "Bow"
 script = ExtResource("6_tipki")
 thing = "Bow"
 
-[node name="Traits" type="VBoxContainer" parent="CanvasLayer/ThingSelection/VBoxContainer"]
+[node name="Traits" type="VBoxContainer" parent="CanvasLayer/ThingSelection/VBoxContainer" unique_id=1088782888]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/ThingSelection/VBoxContainer/Traits"]
+[node name="Label" type="Label" parent="CanvasLayer/ThingSelection/VBoxContainer/Traits" unique_id=1323408657]
 layout_mode = 2
 text = "-- Traits --"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ThingSelection/VBoxContainer/Traits"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ThingSelection/VBoxContainer/Traits" unique_id=712437250]
 custom_minimum_size = Vector2(50, 50)
 layout_direction = 2
 layout_mode = 2
@@ -270,7 +270,7 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 4
 
-[node name="yoink hook" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Traits/GridContainer"]
+[node name="yoink hook" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Traits/GridContainer" unique_id=1185803344]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 toggle_mode = true
@@ -279,7 +279,7 @@ script = ExtResource("6_tipki")
 thing = "Grapple"
 am_i_a_trait = true
 
-[node name="WA-BAM" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Traits/GridContainer"]
+[node name="WA-BAM" type="Button" parent="CanvasLayer/ThingSelection/VBoxContainer/Traits/GridContainer" unique_id=1902802870]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 toggle_mode = true
@@ -288,14 +288,14 @@ script = ExtResource("6_tipki")
 thing = "Parry"
 am_i_a_trait = true
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=572399213]
 _spawnable_scenes = PackedStringArray("uid://hvtxo3crwfxh")
 spawn_path = NodePath("..")
 
-[node name="Host Info" type="CanvasLayer" parent="."]
+[node name="Host Info" type="CanvasLayer" parent="." unique_id=1678078084]
 visible = false
 
-[node name="Control" type="Control" parent="Host Info"]
+[node name="Control" type="Control" parent="Host Info" unique_id=2087989825]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -304,7 +304,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Host Info/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Host Info/Control" unique_id=96224437]
 layout_direction = 3
 layout_mode = 1
 offset_right = 265.0
@@ -314,48 +314,48 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Host Info/Control/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Host Info/Control/MarginContainer" unique_id=384371364]
 layout_mode = 2
 alignment = 2
 
-[node name="BackToLobby" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+[node name="BackToLobby" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer" unique_id=1826210832]
 layout_mode = 2
 focus_mode = 0
 text = "Load the Lobby"
 
-[node name="ChangeMap" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+[node name="ChangeMap" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer" unique_id=1282058080]
 layout_mode = 2
 focus_mode = 0
 text = "Load The Test Map"
 
-[node name="RoundTime" type="LineEdit" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+[node name="RoundTime" type="LineEdit" parent="Host Info/Control/MarginContainer/VBoxContainer" unique_id=1803737270]
 layout_mode = 2
 placeholder_text = "Round Time: 120 seconds"
 
-[node name="StartRound" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+[node name="StartRound" type="Button" parent="Host Info/Control/MarginContainer/VBoxContainer" unique_id=1331374778]
 layout_mode = 2
 focus_mode = 0
 text = "Start a Round"
 
-[node name="HostsIP" type="Label" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+[node name="HostsIP" type="Label" parent="Host Info/Control/MarginContainer/VBoxContainer" unique_id=1813008506]
 visible = false
 layout_mode = 2
 text = "Join IP: put the hosts ipv4 here"
 
-[node name="HostsPort" type="Label" parent="Host Info/Control/MarginContainer/VBoxContainer"]
+[node name="HostsPort" type="Label" parent="Host Info/Control/MarginContainer/VBoxContainer" unique_id=788283043]
 layout_mode = 2
 text = "Port: 1027"
 
-[node name="Void" type="Area3D" parent="."]
+[node name="Void" type="Area3D" parent="." unique_id=284561580]
 script = ExtResource("4_jyhfs")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Void"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Void" unique_id=169930593]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 shape = SubResource("WorldBoundaryShape3D_tbgi4")
 
-[node name="Timers" type="Node" parent="."]
+[node name="Timers" type="Node" parent="." unique_id=1335956972]
 
-[node name="RoundTimer" type="Timer" parent="Timers"]
+[node name="RoundTimer" type="Timer" parent="Timers" unique_id=1403684459]
 one_shot = true
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
