@@ -289,7 +289,7 @@ thing = "Parry"
 am_i_a_trait = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=572399213]
-_spawnable_scenes = PackedStringArray("uid://hvtxo3crwfxh")
+_spawnable_scenes = PackedStringArray("uid://hvtxo3crwfxh", "uid://bprcsfa18a1nm")
 spawn_path = NodePath("..")
 
 [node name="Host Info" type="CanvasLayer" parent="." unique_id=1678078084]

@@ -40,7 +40,7 @@ func _on_host_pressed():
 	$CanvasLayer.hide()
 	$"Host Info".show()
 	
-	hosts_ip.text = "sorry, you gotta find your ip :c"
+	#hosts_ip.text = "sorry, you gotta find your ip :c"
 	hosts_port.text = "Port: " + str(port)
 	
 	Global.IsHost = true
@@ -86,12 +86,15 @@ func _del_player(id):
 		$CanvasLayer.show()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 @rpc("any_peer", "call_local")
-func _send_signal(id, signal_name, parameter = null, parameter2 = null):
+func _send_signal(id, signal_name, parameter = null, parameter2 = null, parameter3 = null):
 	if parameter:
 		if parameter2 == null:
 			get_node(str(id)).call_deferred(signal_name, parameter)
 		if parameter2 != null:
-			get_node(str(id)).call_deferred(signal_name, parameter, parameter2)
+			if parameter3 == null:
+				get_node(str(id)).call_deferred(signal_name, parameter, parameter2)
+			elif parameter3 != null:
+				get_node(str(id)).call_deferred(signal_name, parameter, parameter2, parameter3)
 	else:
 		get_node(str(id)).call_deferred(signal_name)
 
@@ -136,8 +139,17 @@ func _on_start_round_pressed():
 	rpc("change_map", randi_range(1, Maps.size()-1))
 	rpc("reset_player_positions", true)
 	round_timer.start(round_length)
+"res://scenes/arrow.tscn"
 
 
 func _on_round_timer_timeout():
 	rpc("change_map", 0)
 	rpc("reset_player_positions", false)
+
+#func _add_node(node_file : PackedScene):
+	#rpc("add_node", node_file)
+#
+#@rpc("any_peer", "call_local")
+#func add_node(node_file):
+	#if multiplayer.get_remote_sender_id() != Global.LocalPlayerId:
+		#$"MultiplayerSpawner".spawn(node_file)

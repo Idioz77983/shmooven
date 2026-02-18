@@ -109,6 +109,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vst3l")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_23jat"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_23jat"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Arrow" type="Node3D" unique_id=615919413]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 script = ExtResource("1_23jat")
@@ -130,4 +140,16 @@ skeleton = NodePath("")
 
 [node name="Timer" type="Timer" parent="." unique_id=1658348286]
 
+[node name="Area3D" type="Area3D" parent="." unique_id=289389923]
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1371794904]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.13333334, 0, 0)
+shape = SubResource("CapsuleShape3D_23jat")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=276469749]
+replication_config = SubResource("SceneReplicationConfig_23jat")
+public_visibility = false
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

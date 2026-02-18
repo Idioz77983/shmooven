@@ -265,6 +265,9 @@ properties/13/replication_mode = 1
 properties/14/path = NodePath("head/GrappleLineFPM Marker/LineRenderer3D:visible")
 properties/14/spawn = true
 properties/14/replication_mode = 1
+properties/15/path = NodePath("head/FP Hand/FirstpersonModels/BowFPM:visible")
+properties/15/spawn = true
+properties/15/replication_mode = 1
 
 [node name="PlayerRoot" type="CharacterBody3D" unique_id=805449443]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

@@ -15,6 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Shmooven"
+config/tags=PackedStringArray("main_project")
 run/main_scene="uid://dxdjs3yheus65"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -32,6 +33,16 @@ window/stretch/aspect="expand"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/LineRenderer/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "red",
+"res://assets/": "teal",
+"res://resources/": "purple",
+"res://scenes/": "blue",
+"res://scripts/": "yellow"
+}
 
 [input]
 

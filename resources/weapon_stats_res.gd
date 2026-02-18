@@ -10,6 +10,7 @@ class_name weapon_stats
 @export var hitbox_size : float
 @export var grav_multi : float = 1
 @export var slowness : float
+@export var knockback : Vector2 = Vector2(5, 5)
 @export_group("Animations")
 @export var animation_player_name : String = "AnimationPlayer" 
 @export var animation_names : Dictionary[int, String]
@@ -20,6 +21,7 @@ class_name weapon_stats
 @export_subgroup("Ranged Settings")
 @export var is_chargable_weapon: bool
 @export var projectile: PackedScene
+@export var projectile_file_path : String
 
 enum WeaponType {
 	MELEE,

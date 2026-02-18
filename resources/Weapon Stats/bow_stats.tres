@@ -6,9 +6,11 @@
 [resource]
 script = ExtResource("1_5jcpn")
 id = 3
-damage = 50.0
-attack_speed = 0.1
-attack_range = 50.0
+damage = 10.0
+attack_speed = 0.5
+attack_range = 4.0
+hitbox_size = 2.0
+knockback = Vector2(5, 2)
 animation_names = Dictionary[int, String]({
 0: "DrawBack",
 1: "DrawBack3",
@@ -20,4 +22,5 @@ type = 1
 charge_length = 0.5
 is_chargable_weapon = true
 projectile = ExtResource("1_xai75")
+projectile_file_path = "res://scenes/arrow.tscn"
 metadata/_custom_type_script = "uid://ddx6mqhs6571w"

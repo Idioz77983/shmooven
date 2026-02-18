@@ -37,6 +37,7 @@ var grapple_stam : float = 100
 var can_regen_stam : bool = true
 var hand_y_jiggle : float = 0.0
 var attack_type : weapon_attack_types = weapon_attack_types.ON_CLICK
+var attack_knockback : Vector2 = Vector2(10, 5)
 
 ## ranged weapon vars ##
 var can_charge_shot : bool = true
@@ -81,6 +82,7 @@ enum weapon_attack_types {
 @onready var round_timer: RichTextLabel = $head/Camera3D/UI/RoundTimer
 @onready var fp_hand: Marker3D = $"head/FP Hand"
 @onready var shaders: CanvasLayer = $head/Camera3D/Shaders
+@onready var main: Node3D = $"../"
 
 @onready var ranged_weapon_charge: Timer = $Timers/RangedWeaponCharge
 
@@ -284,6 +286,7 @@ func _physics_process(delta):
 						firstperson_models.get_weapon(hand.current_weapon).play_anim(0)
 			weapon_attack_types.HOLD:
 				if Input.is_action_pressed("Hit") and can_attack and !is_parying and can_charge_shot:
+					held_weapon.make_shot_visible(true)
 					if shot_charge_ammount < max_shot_charges:
 						if shot_charge_ammount < 1:
 							held_weapon.play_anim(0)
@@ -292,6 +295,11 @@ func _physics_process(delta):
 						ranged_weapon_charge.start(chargetime_length)
 						can_charge_shot = false
 				elif Input.is_action_just_released("Hit"):
+					held_weapon.make_shot_visible(false)
+					
+					can_attack = false
+					attack_cooldown.start(attack_speed)
+					
 					#print("this should shoot an arrow that has a charge of " + str(shot_charge_ammount))
 					held_weapon.play_anim(held_weapon.stats.animation_names.size() - 1)
 					
@@ -301,6 +309,8 @@ func _physics_process(delta):
 						projectile.position = cam.global_position
 						projectile.rotation = Vector3(0, rotation.y + deg_to_rad(90), head.rotation.x)
 						projectile.charge_count = shot_charge_ammount
+						projectile.is_original = is_multiplayer_authority()
+						projectile.id = name
 						
 						$"../".add_child(projectile)
 					
@@ -414,6 +424,8 @@ func take_damage(damage_amount, attacker):
 	
 	if !is_parying:
 		health -= damage_amount
+		if attacker:
+			velocity += main.get_node(str(attacker)).global_transform.basis * Vector3(0, attack_knockback.y, -attack_knockback.x)
 	elif is_parying:
 		if attacker:
 			$"../".send_signal(attacker, "take_damage", damage_amount, self.name)
@@ -460,12 +472,14 @@ func load_weapon_stats_old(WeaponId):
 			1:
 				attack_type = weapon_attack_types.HOLD
 				ranged_projectile_scene = held_weapon_stats.projectile
+		attack_knockback = held_weapon_stats.knockback
 	elif WeaponId == 0:
 		hit_bar.target_position = Vector3(0, 0, 0)
 		attack_damage = 0
 		attack_speed = 0
 		grav_multi = 1
 		slowness = 0
+		attack_knockback = Vector2(2, 2)
 	
 	if is_multiplayer_authority():
 		arm_anims.play("Hit")

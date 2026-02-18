@@ -60,7 +60,9 @@ func switch_weapon(direction: int):
 	
 	for i in $Weapons.get_children():
 		i.hide()
-	if current_weapon != 0: $Weapons.get_node(weapons[current_weapon]).show()
+	if current_weapon != 0:
+		$Weapons.get_node(weapons[current_weapon]).show()
+		#print($Weapons.get_node(weapons[current_weapon]).name)
 	
 	player.load_weapon_stats_old(current_weapon)
 	#print(current_weapon)
