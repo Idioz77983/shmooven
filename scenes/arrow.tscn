@@ -110,6 +110,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vst3l")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_23jat"]
+radius = 0.75
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_23jat"]
 properties/0/path = NodePath(".:position")
@@ -144,7 +145,7 @@ skeleton = NodePath("")
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1371794904]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.13333334, 0, 0)
+transform = Transform3D(4.360687e-08, 0.9976089, -0.06911215, 1, -4.371139e-08, 0, -3.0209886e-09, -0.06911215, -0.9976089, -0.13333336, 0, 0)
 shape = SubResource("CapsuleShape3D_23jat")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=276469749]

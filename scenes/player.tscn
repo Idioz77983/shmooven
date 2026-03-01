@@ -22,7 +22,7 @@
 [ext_resource type="Shader" uid="uid://dqu7ojexfyrmk" path="res://scripts/shaders/vhs2.gdshader" id="9_ujl30"]
 [ext_resource type="AudioStream" uid="uid://dvlvfauul814u" path="res://assets/Sounds/8 Player Critical Attack Nr 1 Minecraft Sound - Sound Effect for.mp3" id="12_jej6c"]
 [ext_resource type="AudioStream" uid="uid://ckjnxws20bebh" path="res://assets/Sounds/fading a-.mp3" id="13_f1ej7"]
-[ext_resource type="PackedScene" uid="uid://dsk18jgylakhm" path="res://assets/Models/bow.gltf" id="16_60mlk"]
+[ext_resource type="PackedScene" uid="uid://onqnmvfrveh5" path="res://scenes/bow_3rdp_model.tscn" id="20_l71n6"]
 [ext_resource type="AudioStream" uid="uid://cvch0p3m87yjq" path="res://assets/Sounds/hero_parry.wav" id="26_ujl30"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g2els"]
@@ -265,7 +265,7 @@ properties/13/replication_mode = 1
 properties/14/path = NodePath("head/GrappleLineFPM Marker/LineRenderer3D:visible")
 properties/14/spawn = true
 properties/14/replication_mode = 1
-properties/15/path = NodePath("head/FP Hand/FirstpersonModels/BowFPM:visible")
+properties/15/path = NodePath("TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons/Bow:visible")
 properties/15/spawn = true
 properties/15/replication_mode = 1
 
@@ -479,6 +479,7 @@ transform = Transform3D(-0.006445465, 0.0011365095, 0.7499715, 0.13023612, 0.738
 script = ExtResource("2_smehm")
 
 [node name="ScytheFPM" parent="head/FP Hand/FirstpersonModels" unique_id=1732291974 instance=ExtResource("3_y4r1p")]
+visible = false
 
 [node name="SwordFPM" parent="head/FP Hand/FirstpersonModels" unique_id=1420564804 instance=ExtResource("4_d2wvv")]
 visible = false
@@ -553,7 +554,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="WaveDashTimer" type="Timer" parent="Timers" unique_id=977509787]
-wait_time = 0.1
+wait_time = 0.5
 one_shot = true
 
 [node name="AbilityCooldown" type="Timer" parent="Timers" unique_id=1012659961]
@@ -568,6 +569,9 @@ one_shot = true
 [node name="RangedWeaponCharge" type="Timer" parent="Timers" unique_id=1836415615]
 one_shot = true
 
+[node name="CyoteTime" type="Timer" parent="Timers" unique_id=1747209752]
+wait_time = 0.2
+
 [node name="TempPlayerModel" parent="." unique_id=1378395463 instance=ExtResource("2_g2els")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.757, 0)
 
@@ -575,7 +579,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.757, 0)
 transform = Transform3D(0.93969256, 0.34202015, 0, -0.34202012, 0.9396926, 0, 0, 0, 0.99999994, -0.3125, 1.890625, 0)
 
 [node name="RightArm" parent="TempPlayerModel/Blobert/UpperBody" index="1"]
-transform = Transform3D(0.93969214, -0.3420201, 0, 0.34201995, 0.93969256, 0, 0, 0, 1, 0.3, 1.891, 0.063)
+transform = Transform3D(0.9396921, -0.3420201, 0, 0.34201992, 0.93969256, 0, 0, 0, 1, 0.3, 1.891, 0.063)
 
 [node name="GripSpot" type="Marker3D" parent="TempPlayerModel/Blobert/UpperBody/RightArm" index="4" unique_id=290262803]
 transform = Transform3D(0.99999994, -8.1247425e-11, 1.7729151e-12, 0, 1, 0, 0, 0, 0.99999994, 0.099999994, -1.0999999, 7.450581e-09)
@@ -592,9 +596,8 @@ visible = false
 transform = Transform3D(-4.675154e-20, -5.9604645e-08, 1.5000001, -1.4488889, 0.38822865, -5.9604645e-08, -0.38822865, -1.4488889, -6.556708e-08, 0, 0, 0)
 visible = false
 
-[node name="Bow" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" unique_id=1140328782 instance=ExtResource("16_60mlk")]
-transform = Transform3D(0, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.3711385e-08, 0, 0, 0)
-visible = false
+[node name="Bow" parent="TempPlayerModel/Blobert/UpperBody/RightArm/GripSpot/Weapons" unique_id=1580741851 instance=ExtResource("20_l71n6")]
+transform = Transform3D(0.1736482, -2.7818125e-08, 0.9848077, -0.9848077, 0, 0.1736482, -3.463289e-08, -0.99999994, -1.9944931e-08, -0.1, -1.4901161e-09, 2.0367552e-09)
 
 [node name="Nametag" type="Label3D" parent="." unique_id=480753832]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

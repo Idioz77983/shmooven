@@ -75,8 +75,8 @@ func exit_game(id):
 func del_player(id):
 	rpc("_del_player", id)
 
-func send_signal(id, signal_name, parameter = null, parameter2 = null):
-	rpc("_send_signal", id, signal_name, parameter, parameter2)
+func send_signal(id, signal_name, parameter = null, parameter2 = null, parameter3 = null):
+	rpc("_send_signal", id, signal_name, parameter, parameter2, parameter3)
 
 @rpc("any_peer", "call_local")
 func _del_player(id):

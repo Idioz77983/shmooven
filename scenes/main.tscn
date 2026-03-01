@@ -189,7 +189,12 @@ text = "[tornado]-- Update Log -- [/tornado]
  - Extreamly W.I.P map, Tundrum
  - Gave swords ability a speed burst
  - Fixed a grapple bug where you could regen your stamina in the air
- - Fixed joining into the wrong map, like loading into the lobby during a round"
+ - Fixed joining into the wrong map, like loading into the lobby during a round
+ - Added the Bow to the roster!
+ - Changed how wave dashing works
+ - Added some unique swing animations for eatch weapon
+ - Buffed the sword's damage by 5hp
+ - Removed Trebolb"
 
 [node name="ThingSelection" type="ScrollContainer" parent="CanvasLayer" unique_id=1311833424]
 anchors_preset = 3

@@ -8,5 +8,8 @@
 script = ExtResource("2_h0eiy")
 stats = ExtResource("3_5hvpw")
 
-[node name="cuboid3" parent="Bow/Arrow" parent_id_path=PackedInt32Array(2127809108) index="2" unique_id=2100976031]
+[node name="Arrow" parent="Bow" parent_id_path=PackedInt32Array(677344739) index="1" unique_id=2127809108]
+visible = false
+
+[node name="cuboid3" parent="Bow/Arrow" index="2" unique_id=2100976031]
 transform = Transform3D(1.0606601, -1.0606602, 0, 1.0606602, 1.0606601, 0, 0, 0, 1.5, -1, 0, 0)

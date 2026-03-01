@@ -83,6 +83,7 @@ enum weapon_attack_types {
 @onready var fp_hand: Marker3D = $"head/FP Hand"
 @onready var shaders: CanvasLayer = $head/Camera3D/Shaders
 @onready var main: Node3D = $"../"
+@onready var cyote_time: Timer = $Timers/CyoteTime
 
 @onready var ranged_weapon_charge: Timer = $Timers/RangedWeaponCharge
 
@@ -199,9 +200,9 @@ func _physics_process(delta):
 		
 		if is_dashing == false and is_on_floor():
 			can_dash = true
-		elif is_dashing and is_on_floor() and can_wavedash == false:
-			can_wavedash = true
-			wave_dash_timer.start()
+		#elif is_dashing and is_on_floor() and can_wavedash == false:
+			#can_wavedash = true
+			#wave_dash_timer.start()
 		if can_wavedash == false and is_on_floor():
 			speed = default_speed
 		
@@ -385,7 +386,9 @@ func dash(dash_speed : int, additive = true):
 	dash_timer.paused = false
 	is_dashing = true
 	can_dash = false
-	dash_timer.start()
+	can_wavedash = true
+	dash_timer.start(1)
+	wave_dash_timer.start()
 
 func hit(lifesteal = false, extra_damage = 0):
 	#print("Trying to hit :]")
@@ -418,14 +421,14 @@ func ability():
 			can_ability = false
 		firstperson_models.get_weapon(hand.current_weapon).play_anim(1)
 
-func take_damage(damage_amount, attacker):
+func take_damage(damage_amount, attacker, knockback : Vector2 = Vector2(5, 5)):
 	hit_sfx.pitch_scale = randf_range(0.8, 1)
 	hit_sfx.play()
 	
 	if !is_parying:
 		health -= damage_amount
 		if attacker:
-			velocity += main.get_node(str(attacker)).global_transform.basis * Vector3(0, attack_knockback.y, -attack_knockback.x)
+			velocity += main.get_node(str(attacker)).global_transform.basis * Vector3(0, knockback.y, -knockback.x)
 	elif is_parying:
 		if attacker:
 			$"../".send_signal(attacker, "take_damage", damage_amount, self.name)
@@ -492,7 +495,8 @@ func _on_attack_cooldown_timeout():
 	can_attack = true
 
 func _on_respawn_timer_timeout():
-	position = Vector3(0, 2, 0)
+	position = Vector3(randi_range(-8, 8), 2, randi_range(-8, 8))
+	velocity = Vector3(0, JUMP_VELOCITY, 0)
 	health = 100
 	is_dead = false
 
