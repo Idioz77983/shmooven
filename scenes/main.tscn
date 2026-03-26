@@ -169,7 +169,8 @@ text = "-- Controls --
 wasd - move
 lmb - ability
 rmb - attack
-shift - dash"
+shift - dash
+escape - lock mouse"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=268823949]
 anchors_preset = 1

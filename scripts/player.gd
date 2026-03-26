@@ -4,7 +4,7 @@ var has_esc_been_pressed = false
 
 var speed = 6
 const default_speed = 6
-const JUMP_VELOCITY = 10
+const JUMP_VELOCITY = 7.5
 const gravity = -20
 const mouse_sens = 0.3
 var friction = 0.1
